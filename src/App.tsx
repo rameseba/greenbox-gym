@@ -67,6 +67,19 @@ const FAQS = [
 // Imagen de horarios
 const SCHEDULE_IMAGE_URL = "https://i.ibb.co/zVppVcgv/horarios.png";
 
+const TERMINAL_BENEFITS = [
+  "Quema de grasa acelerada",
+  "Mejora la resistencia cardiovascular",
+  "Aumento de fuerza funcional",
+  "Mayor flexibilidad y movilidad",
+  "Comunidad motivadora",
+  "Mejora la coordinación y equilibrio",
+  "Resultados visibles en poco tiempo",
+  "Adaptable a cualquier nivel",
+  "Reduce el estrés y la ansiedad",
+  "Diversidad constante de ejercicios"
+];
+
 const BENEFITS = [
   {
     icon: <TrendingUp className="w-6 h-6" />,
@@ -158,7 +171,34 @@ const LogoSVG = ({ className = "", withText = true, isDark = true }: { className
   </div>
 );
 
-const FAQItem: React.FC<{ q: string; a: string; isDark: boolean }> = ({ q, a, isDark }) => {
+const TerminalStatus = ({ isDark }: { isDark: boolean }) => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % TERMINAL_BENEFITS.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className={`relative z-10 border-4 ${isDark ? 'border-white/5 bg-neutral-900/80' : 'border-black/5 bg-white/80'} p-10 rounded-3xl backdrop-blur-md transition-colors duration-500`}>
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-3 h-3 rounded-full bg-[#22c55e]" />
+        <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
+        <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
+      </div>
+      <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-mono text-[10px] uppercase tracking-widest leading-loose`}>
+        // Protocolo GreenBox v5.0 <br/>
+        // {TERMINAL_BENEFITS[index]} <br/>
+        // Valencia, Carabobo <br/>
+        // Tu box verde 💚
+      </p>
+    </div>
+  );
+};
+
+const FAQItem = ({ q, a, isDark }: { q: string, a: string, isDark: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -507,19 +547,7 @@ export default function App() {
                 </div>
                 <div className="hidden md:block relative group">
                    <div className={`absolute inset-0 ${isDark ? 'bg-[#22c55e]/5' : 'bg-[#22c55e]/10'} blur-[100px] rounded-full transition-all group-hover:bg-[#22c55e]/20`} />
-                   <div className={`relative z-10 border-4 ${isDark ? 'border-white/5 bg-neutral-900/80' : 'border-black/5 bg-white/80'} p-10 rounded-3xl backdrop-blur-md transition-colors duration-500`}>
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-3 h-3 rounded-full bg-[#22c55e]" />
-                        <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
-                        <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
-                      </div>
-                      <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-mono text-[10px] uppercase tracking-widest leading-loose`}>
-                        // Protocolo GreenBox v5.0 <br/>
-                        // Estado: {BENEFITS[benefitIndex].title} <br/>
-                        // {SLOGAN} <br/>
-                        // Valencia, Carabobo
-                      </p>
-                   </div>
+                   <TerminalStatus isDark={isDark} />
                 </div>
               </motion.div>
             </AnimatePresence>
