@@ -87,6 +87,55 @@ const BENEFITS = [
   }
 ];
 
+const PLANS = [
+  {
+    name: "Green Base",
+    price: "35",
+    features: ["Acceso horario AM", "Entrenador de piso", "App de seguimiento", "Wifi & Hidratación"],
+    recommended: false
+  },
+  {
+    name: "Box Pro",
+    price: "55",
+    features: ["Acceso ilimitado", "Todas las clases grupales", "1 Clase especial/mes", "Evaluación física mensual"],
+    recommended: true
+  },
+  {
+    name: "Elite VIP",
+    price: "85",
+    features: ["Acceso 24/7", "Entrenador personal 1h/sem", "Plan nutricional", "Toallas & Café ilimitado"],
+    recommended: false
+  }
+];
+
+const COACHES = [
+  {
+    name: "Marco 'The Rock' Silva",
+    role: "Head Coach - Funcional",
+    image: "/coaches/coach1.png",
+    motto: "La técnica es la madre de la fuerza."
+  },
+  {
+    name: "Elena 'Zen' Ramos",
+    role: "Mobility & Yoga",
+    image: "/coaches/coach2.png",
+    motto: "Un cuerpo móvil es un cuerpo eterno."
+  }
+];
+
+const TESTIMONIALS = [
+  {
+    name: "Andrés G.",
+    text: "GreenBox cambió mi forma de ver el ejercicio. No es solo sudar, es aprender a moverte bien.",
+    role: "Miembro hace 2 años"
+  },
+  {
+    name: "Camila V.",
+    text: "El ambiente es increíble. Los coaches te exigen pero te cuidan. ¡El Box Verde es mi segundo hogar!",
+    role: "Miembro hace 6 meses"
+  }
+];
+
 // --- Sub-componentes ---
 
 const LogoSVG = ({ className = "", withText = true, isDark = true }: { className?: string, withText?: boolean, isDark?: boolean }) => (
@@ -591,6 +640,141 @@ export default function App() {
           </div>
           
           <ImageCarousel />
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="planes" className={`py-20 md:py-32 ${isDark ? 'bg-zinc-950' : 'bg-white'} transition-colors duration-500`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16 md:mb-24">
+            <span className="text-[#22c55e] font-black uppercase tracking-[0.4em] text-[10px] md:text-xs mb-3 block italic">Elige tu destino</span>
+            <h2 className={`text-4xl sm:text-6xl md:text-8xl font-black italic uppercase leading-[0.85] tracking-tighter transition-colors ${isDark ? 'text-white' : 'text-black'}`}>
+              PLANES DE <br /> <span className="text-[#22c55e]">MEMBRESÍA</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            {PLANS.map((plan, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -10 }}
+                className={`relative p-8 md:p-12 rounded-[2.5rem] border-2 transition-all duration-500 ${
+                  plan.recommended 
+                    ? 'border-[#22c55e] bg-[#22c55e]/5 shadow-[0_30px_100px_rgba(34,197,94,0.1)] scale-105 z-10' 
+                    : (isDark ? 'border-white/5 bg-zinc-900/50' : 'border-black/5 bg-neutral-50')
+                }`}
+              >
+                {plan.recommended && (
+                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#22c55e] text-black px-6 py-1.5 rounded-full font-black uppercase text-[10px] tracking-widest italic shadow-xl">
+                    Recomendado
+                  </div>
+                )}
+                <h3 className={`text-2xl md:text-4xl font-black italic uppercase mb-2 ${isDark ? 'text-white' : 'text-black'}`}>{plan.name}</h3>
+                <div className="flex items-baseline gap-1 mb-8">
+                  <span className="text-4xl md:text-6xl font-black text-[#22c55e]">${plan.price}</span>
+                  <span className={`text-sm font-bold uppercase ${isDark ? 'text-white/40' : 'text-black/40'}`}>/ Mes</span>
+                </div>
+                <ul className="space-y-4 mb-12">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-3">
+                      <Zap size={14} className="text-[#22c55e] shrink-0" />
+                      <span className={`text-sm font-bold uppercase italic tracking-tight ${isDark ? 'text-white/60' : 'text-black/60'}`}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a 
+                  href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${encodeURIComponent(`Hola! Quiero el plan ${plan.name}.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`w-full py-5 rounded-full font-black uppercase tracking-widest text-sm transition-all text-center block ${
+                    plan.recommended 
+                      ? 'bg-[#22c55e] text-black hover:bg-white hover:text-black shadow-lg shadow-[#22c55e]/20' 
+                      : (isDark ? 'bg-white text-black hover:bg-[#22c55e] hover:text-white' : 'bg-black text-[#22c55e] hover:bg-[#22c55e] hover:text-white')
+                  }`}
+                >
+                  Seleccionar
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Coaches Section */}
+      <section className={`py-20 md:py-32 ${isDark ? 'bg-[#050505]' : 'bg-neutral-50'} transition-colors duration-500 overflow-hidden`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-16 md:mb-24 gap-8">
+            <div className="text-left">
+              <span className="text-[#22c55e] font-black uppercase tracking-[0.4em] text-[10px] mb-3 block italic">El Corazón del Box</span>
+              <h2 className={`text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-[0.85] ${isDark ? 'text-white' : 'text-black'}`}>
+                NUESTROS <span className="text-[#22c55e]">COACHES</span>
+              </h2>
+            </div>
+            <p className={`max-w-md italic font-bold text-sm md:text-lg ${isDark ? 'text-white/40' : 'text-black/40'} leading-tight`}>
+              Expertos en transformar límites en hitos. No solo te entrenan, te guían hacia tu mejor versión.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16">
+            {COACHES.map((coach, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ scale: 1.02 }}
+                className={`group relative overflow-hidden rounded-[3rem] border-4 ${isDark ? 'border-white/5 bg-zinc-900' : 'border-black/5 bg-white'} shadow-2xl`}
+              >
+                <div className="aspect-[4/5] relative overflow-hidden">
+                  <img 
+                    src={coach.image} 
+                    alt={coach.name} 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+                </div>
+                <div className="p-8 md:p-12 relative">
+                  <h3 className="text-2xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-1">{coach.name}</h3>
+                  <p className={`text-sm md:text-lg font-black uppercase tracking-widest italic mb-6 ${isDark ? 'text-white/60' : 'text-black/60'}`}>{coach.role}</p>
+                  <div className={`p-4 rounded-2xl ${isDark ? 'bg-black/40' : 'bg-neutral-100'} border-l-4 border-[#22c55e] italic`}>
+                    <p className={`text-sm md:text-base font-bold ${isDark ? 'text-white/40' : 'text-black/40'}`}>"{coach.motto}"</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className={`py-20 md:py-32 ${isDark ? 'bg-zinc-950' : 'bg-white'} transition-colors duration-500`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative">
+              <div className="absolute -top-24 -left-12 text-[#22c55e]/10 text-[20rem] font-black italic pointer-events-none select-none">"</div>
+              <h2 className={`text-4xl md:text-7xl font-black italic uppercase leading-none tracking-tighter mb-8 ${isDark ? 'text-white' : 'text-black'}`}>
+                LO QUE DICE <br /> <span className="text-[#22c55e]">LA COMUNIDAD</span>
+              </h2>
+              <div className="flex gap-4">
+                {[1,2,3,4,5].map(s => <Zap key={s} size={20} className="text-[#22c55e] fill-[#22c55e]" />)}
+              </div>
+            </div>
+            
+            <div className="space-y-6">
+              {TESTIMONIALS.map((t, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.2 }}
+                  className={`p-8 md:p-10 rounded-[2rem] border-2 ${isDark ? 'border-white/5 bg-zinc-900/30' : 'border-black/5 bg-neutral-50'} relative`}
+                >
+                  <p className={`text-lg md:text-2xl font-bold italic mb-6 leading-relaxed ${isDark ? 'text-white/80' : 'text-black/80'}`}>"{t.text}"</p>
+                  <div>
+                    <p className="text-[#22c55e] font-black uppercase tracking-widest italic">{t.name}</p>
+                    <p className={`text-xs uppercase font-bold tracking-tight ${isDark ? 'text-white/20' : 'text-black/20'}`}>{t.role}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
