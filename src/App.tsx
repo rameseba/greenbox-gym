@@ -146,17 +146,30 @@ const COACHES = [
   }
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Andrés G.",
-    text: "GreenBox cambió mi forma de ver el ejercicio. No es solo sudar, es aprender a moverte bien.",
-    role: "Miembro hace 2 años"
-  },
-  {
-    name: "Camila V.",
-    text: "El ambiente es increíble. Los coaches te exigen pero te cuidan. ¡El Box Verde es mi segundo hogar!",
-    role: "Miembro hace 6 meses"
-  }
+const TESTIMONIALS_1 = [
+  "GreenBox cambió mi forma de ver el ejercicio.",
+  "No es solo sudar, es aprender a moverte bien.",
+  "La comunidad aquí es lo mejor, te motivan siempre.",
+  "Los coaches son expertos y muy dedicados.",
+  "Nunca pensé que el CrossFit fuera para mí.",
+  "El ambiente es increíble, 100% recomendado.",
+  "Resultados reales desde el primer mes.",
+  "Es mi lugar feliz después de un día largo.",
+  "La técnica es lo más importante aquí.",
+  "Mucha disciplina y buena energía siempre."
+];
+
+const TESTIMONIALS_2 = [
+  "He ganado mucha fuerza y confianza.",
+  "El box verde es mi segunda casa.",
+  "Instalaciones de primera y coaches top.",
+  "Cada WOD es un nuevo desafío superado.",
+  "Aprendí que los límites están en la mente.",
+  "Gracias GreenBox por ayudarme a mejorar.",
+  "Entrenar aquí es otro nivel de experiencia.",
+  "La mejor decisión que tomé para mi salud.",
+  "Valencia necesitaba un box como este.",
+  "Comunidad, fuerza y salud integral."
 ];
 
 // --- Sub-componentes ---
@@ -200,7 +213,7 @@ const ScrambledText = ({ text }: { text: string }) => {
       );
 
       if (iteration >= text.length) clearInterval(interval);
-      iteration += 1 / 3;
+      iteration += 3; // Much faster for long testimonials
     }, 30);
     return () => clearInterval(interval);
   }, [text]);
@@ -231,6 +244,29 @@ const TerminalStatus = ({ isDark }: { isDark: boolean }) => {
           // <ScrambledText text={TERMINAL_BENEFITS[index].toUpperCase()} />
         </p>
         <p>// Tu box verde 💚</p>
+      </div>
+    </div>
+  );
+};
+
+const RotatingTestimonial = ({ items, isDark, name, role }: { items: string[], isDark: boolean, name: string, role: string }) => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % items.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [items.length]);
+
+  return (
+    <div className={`p-8 md:p-10 rounded-[2rem] border-2 ${isDark ? 'border-white/5 bg-zinc-900/30' : 'border-black/5 bg-neutral-50'} relative min-h-[220px] md:min-h-[280px] flex flex-col justify-between transition-all duration-500`}>
+      <p className={`text-lg md:text-2xl font-bold italic mb-6 leading-relaxed ${isDark ? 'text-white/80' : 'text-black/80'}`}>
+        "<ScrambledText text={items[index]} />"
+      </p>
+      <div>
+        <p className="text-[#22c55e] font-black uppercase tracking-widest italic">{name}</p>
+        <p className={`text-xs uppercase font-bold tracking-tight ${isDark ? 'text-white/20' : 'text-black/20'}`}>{role}</p>
       </div>
     </div>
   );
@@ -838,21 +874,18 @@ export default function App() {
             </div>
             
             <div className="space-y-6">
-              {TESTIMONIALS.map((t, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.2 }}
-                  className={`p-8 md:p-10 rounded-[2rem] border-2 ${isDark ? 'border-white/5 bg-zinc-900/30' : 'border-black/5 bg-neutral-50'} relative`}
-                >
-                  <p className={`text-lg md:text-2xl font-bold italic mb-6 leading-relaxed ${isDark ? 'text-white/80' : 'text-black/80'}`}>"{t.text}"</p>
-                  <div>
-                    <p className="text-[#22c55e] font-black uppercase tracking-widest italic">{t.name}</p>
-                    <p className={`text-xs uppercase font-bold tracking-tight ${isDark ? 'text-white/20' : 'text-black/20'}`}>{t.role}</p>
-                  </div>
-                </motion.div>
-              ))}
+              <RotatingTestimonial 
+                items={TESTIMONIALS_1} 
+                isDark={isDark} 
+                name="Andrés G." 
+                role="Miembro hace 2 años" 
+              />
+              <RotatingTestimonial 
+                items={TESTIMONIALS_2} 
+                isDark={isDark} 
+                name="Camila V." 
+                role="Miembro hace 6 meses" 
+              />
             </div>
           </div>
         </div>
