@@ -90,8 +90,8 @@ const BENEFITS = [
 // --- Sub-componentes ---
 
 const LogoSVG = ({ className = "", withText = true, isDark = true }: { className?: string, withText?: boolean, isDark?: boolean }) => (
-  <div className={`flex items-center gap-3 md:gap-5 ${className}`}>
-    <div className={`relative w-16 h-16 md:w-24 md:h-24 shrink-0 rounded-full p-1 shadow-lg border-[3px] md:border-[4px] border-[#22c55e] overflow-hidden flex items-center justify-center transition-all duration-500 ${isDark ? 'bg-white' : 'bg-black'}`}>
+  <div className={`flex items-center gap-2 md:gap-5 ${className}`}>
+    <div className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 shrink-0 rounded-full p-1 shadow-lg border-[2px] md:border-[4px] border-[#22c55e] overflow-hidden flex items-center justify-center transition-all duration-500 ${isDark ? 'bg-white' : 'bg-black'}`}>
       <img 
         src={LOGO_URL} 
         alt="GreenBox Logo" 
@@ -100,10 +100,10 @@ const LogoSVG = ({ className = "", withText = true, isDark = true }: { className
     </div>
     {withText && (
       <div className="flex flex-col">
-        <h2 className={`text-2xl md:text-5xl font-black italic tracking-tighter leading-none transition-colors duration-500 ${isDark ? 'text-white' : 'text-black'}`}>
+        <h2 className={`text-xl sm:text-2xl md:text-5xl font-black italic tracking-tighter leading-none transition-colors duration-500 ${isDark ? 'text-white' : 'text-black'}`}>
           GREEN<span className="text-[#22c55e]">BOX</span>
         </h2>
-        <span className={`text-[10px] md:text-sm font-black uppercase tracking-[0.4em] mt-1 italic transition-colors duration-500 ${isDark ? 'text-[#22c55e]' : 'text-neutral-500'}`}>
+        <span className={`text-[8px] sm:text-[10px] md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.4em] mt-0.5 md:mt-1 italic transition-colors duration-500 ${isDark ? 'text-[#22c55e]' : 'text-neutral-500'}`}>
           {SLOGAN}
         </span>
       </div>
@@ -206,7 +206,7 @@ const Navbar = ({ isDark, toggleTheme }: { isDark: boolean, toggleTheme: () => v
         <LogoSVG 
           isDark={isScrolled ? isDark : true} 
           withText={true} 
-          className={`transition-all duration-500 ${isScrolled ? 'scale-[0.5] md:scale-[0.65] origin-left' : 'scale-[0.7] md:scale-100 origin-left'}`} 
+          className={`transition-all duration-500 ${isScrolled ? 'scale-[0.6] sm:scale-[0.65] origin-left' : 'scale-[0.85] sm:scale-100 origin-left'}`} 
         />
 
         <div className="hidden lg:flex items-center gap-10">
@@ -350,10 +350,10 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] font-black leading-[1] md:leading-[0.8] tracking-tighter mb-8 italic uppercase text-white shadow-text px-2">
+            <h1 className="text-[clamp(2.5rem,12vw,9rem)] font-black leading-[0.9] tracking-tighter mb-8 italic uppercase text-white shadow-text px-2">
               SÉ <span className="text-[#1a8d3c]">FUERTE</span>
             </h1>
-            <p className="text-xs sm:text-lg md:text-2xl text-white/60 font-black uppercase tracking-[0.1em] md:tracking-widest mb-12 max-w-2xl mx-auto italic px-4 leading-relaxed">
+            <p className="text-xs sm:text-lg md:text-2xl text-white/60 font-black uppercase tracking-[0.1em] md:tracking-widest mb-12 max-w-3xl mx-auto italic px-4 leading-relaxed">
               Box Funcional Premium • {LOCATION_VALENCIA}
             </p>
             <div className="flex flex-col sm:flex-row gap-5 md:gap-8 justify-center items-center px-4">
@@ -383,12 +383,12 @@ export default function App() {
 
       {/* Grid Content */}
       <section className={`py-0 grid lg:grid-cols-2 ${isDark ? 'bg-zinc-950' : 'bg-white'} transition-colors duration-500`}>
-        <div className={`${isDark ? 'bg-[#1a8d3c]' : 'bg-[#22c55e]'} p-8 sm:p-14 lg:p-24 flex flex-col justify-center transition-colors duration-500 relative overflow-hidden group`}>
+        <div className={`${isDark ? 'bg-[#1a8d3c]' : 'bg-[#22c55e]'} p-8 sm:p-14 lg:p-24 xl:p-32 flex flex-col justify-center transition-colors duration-500 relative overflow-hidden group`}>
           <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity" />
-          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black mb-6 italic leading-[0.85] text-black uppercase tracking-tighter relative z-10">
+          <h2 className="text-[clamp(2.5rem,8vw,6rem)] font-black mb-6 italic leading-[0.85] text-black uppercase tracking-tighter relative z-10">
             TU CUERPO <br /> <span className="drop-shadow-sm">TU REGLAS.</span>
           </h2>
-          <p className="text-black/80 text-sm sm:text-xl font-bold italic mb-10 max-w-md uppercase tracking-tight relative z-10 leading-tight">
+          <p className="text-black/80 text-sm sm:text-lg md:text-xl font-bold italic mb-10 max-w-lg uppercase tracking-tight relative z-10 leading-tight">
             Valencia tiene un nuevo estándar. Entrenamiento funcional intenso para los que no se conforman con lo básico.
           </p>
           <div className="hidden lg:block relative z-10">
@@ -397,16 +397,16 @@ export default function App() {
             </p>
           </div>
         </div>
-        <div className="relative min-h-[450px] lg:min-h-full overflow-hidden">
+        <div className="relative min-h-[400px] sm:min-h-[500px] lg:min-h-full overflow-hidden">
           <img 
             src={GRID_IMAGE} 
             className={`absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000 grayscale ${isDark ? 'opacity-30' : 'opacity-60'} transition-opacity duration-500`}
             alt="Gym Box Training"
           />
           <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent' : 'bg-gradient-to-t from-white via-transparent to-transparent opacity-40'} transition-all`} />
-          <div className="absolute bottom-12 left-12">
-            <h3 className="text-2xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-2 drop-shadow-lg">{SLOGAN}</h3>
-            <h3 className={`text-2xl md:text-5xl font-black italic uppercase ${isDark ? 'text-white' : 'text-black'} tracking-tighter transition-colors drop-shadow-xl`}>CALIDAD • VALORES • RESULTADOS</h3>
+          <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 max-w-[80%]">
+            <h3 className="text-xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-2 drop-shadow-lg">{SLOGAN}</h3>
+            <h3 className={`text-xl md:text-5xl font-black italic uppercase ${isDark ? 'text-white' : 'text-black'} tracking-tighter transition-colors drop-shadow-xl leading-[0.9]`}>CALIDAD • VALORES • RESULTADOS</h3>
           </div>
         </div>
       </section>
@@ -414,25 +414,25 @@ export default function App() {
       {/* Benefits Interactive Carousel */}
       <section className={`py-12 md:py-32 ${isDark ? 'bg-zinc-900/30' : 'bg-neutral-50'} border-y ${isDark ? 'border-white/5' : 'border-black/5'} overflow-hidden transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-8 md:mb-20 gap-6">
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 md:mb-20 gap-8">
             <div className="text-left">
-              <span className="text-[#22c55e] font-black uppercase tracking-[0.4em] text-[8px] md:text-[10px] mb-4 block italic drop-shadow-sm">Inspiración GreenBox</span>
-              <h2 className={`text-3xl md:text-8xl font-black italic uppercase tracking-tighter leading-none transition-colors ${isDark ? 'text-white' : 'text-black'}`}>
+              <span className="text-[#22c55e] font-black uppercase tracking-[0.4em] text-[8px] sm:text-[10px] mb-4 block italic drop-shadow-sm">Inspiración GreenBox</span>
+              <h2 className={`text-[clamp(2rem,6vw,5rem)] font-black italic uppercase tracking-tighter leading-[0.9] transition-colors ${isDark ? 'text-white' : 'text-black'}`}>
                 VENTAJA <span className="text-[#22c55e]">GREENBOX</span>
               </h2>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-4 self-end md:self-auto">
               <button 
                 onClick={() => setBenefitIndex(prev => (prev - 1 + BENEFITS.length) % BENEFITS.length)}
-                className={`w-10 h-10 md:w-12 md:h-12 rounded-full border-2 ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'} flex items-center justify-center hover:bg-[#22c55e] hover:border-[#22c55e] hover:text-black transition-all`}
+                className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-2 ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'} flex items-center justify-center hover:bg-[#22c55e] hover:border-[#22c55e] hover:text-black transition-all shadow-lg active:scale-90`}
               >
-                <ChevronLeft size={20} />
+                <ChevronLeft size={24} />
               </button>
               <button 
                 onClick={() => setBenefitIndex(prev => (prev + 1) % BENEFITS.length)}
-                className={`w-10 h-10 md:w-12 md:h-12 rounded-full border-2 ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'} flex items-center justify-center hover:bg-[#22c55e] hover:border-[#22c55e] hover:text-black transition-all`}
+                className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-2 ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'} flex items-center justify-center hover:bg-[#22c55e] hover:border-[#22c55e] hover:text-black transition-all shadow-lg active:scale-90`}
               >
-                <ChevronRight size={20} />
+                <ChevronRight size={24} />
               </button>
             </div>
           </div>
@@ -625,14 +625,15 @@ export default function App() {
       </section>
 
       {/* New "How to Get There" Section */}
-      <section className={`py-12 md:py-24 ${isDark ? 'bg-[#0a0a0a]' : 'bg-white'} transition-colors duration-500 overflow-hidden`}>
+      <section className={`py-16 md:py-32 ${isDark ? 'bg-[#0a0a0a]' : 'bg-white'} transition-colors duration-500 overflow-hidden`}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col items-center text-center mb-12 md:mb-16">
+          <div className="flex flex-col items-center text-center mb-12 md:mb-20">
             <motion.div 
               initial={{ scale: 0, rotate: -20 }}
               whileInView={{ scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="w-24 h-24 md:w-32 md:h-32 mb-6 relative"
+              className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mb-6 relative"
             >
               <div className="absolute inset-0 bg-[#22c55e]/20 blur-2xl rounded-full animate-pulse" />
               <img 
@@ -641,20 +642,20 @@ export default function App() {
                 className="w-full h-full object-contain relative z-10 drop-shadow-2xl"
               />
             </motion.div>
-            <h2 className={`text-4xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
+            <h2 className={`text-4xl sm:text-6xl md:text-8xl font-black italic uppercase tracking-tighter leading-[0.9] mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
               COMO LLEGAR A <br className="md:hidden" /> <span className="text-[#22c55e]">TÚ GREENBOX 💚</span>
             </h2>
-            <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-black uppercase tracking-[0.3em] text-[10px] md:text-sm italic`}>
+            <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-black uppercase tracking-[0.3em] text-[9px] sm:text-[10px] md:text-sm italic`}>
               Sigue nuestra ruta y llega directo al éxito
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto relative group">
+          <div className="max-w-5xl mx-auto relative group">
             <div className="absolute -inset-4 bg-[#22c55e] opacity-10 blur-3xl rounded-[2rem] md:rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
-            <div className={`relative border-4 md:border-[12px] ${isDark ? 'border-zinc-900 bg-black' : 'border-black bg-neutral-100'} shadow-2xl overflow-hidden rounded-[2rem] md:rounded-[3rem]`}>
+            <div className={`relative border-4 md:border-[12px] ${isDark ? 'border-zinc-900 bg-black' : 'border-black bg-neutral-100'} shadow-2xl overflow-hidden rounded-[2rem] md:rounded-[3rem] aspect-video sm:aspect-auto`}>
               <video 
                 controls 
-                className="w-full h-auto block"
+                className="w-full h-full sm:h-auto block max-h-[70vh] object-cover sm:object-contain"
                 poster={HERO_IMAGE}
               >
                 <source src="/ComoLlegar.mp4" type="video/mp4" />
