@@ -69,7 +69,7 @@ const FAQS = [
 ];
 
 // Imagen de horarios
-const SCHEDULE_IMAGE_URL = "https://i.ibb.co/mVhRCYVK/com-instagram-android-20260429162737.png";
+const SCHEDULE_IMAGE_URL = "https://i.ibb.co/zVppVcgv/horarios.png";
 
 const BENEFITS = [
   {
