@@ -781,7 +781,7 @@ export default function App() {
       </section>
 
       {/* FAQ Section */}
-      <section className={`py-12 md:py-20 ${isDark ? 'bg-[#0a0a0a]' : 'bg-white'} transition-colors duration-500`}>
+      <section id="faqs" className={`py-12 md:py-20 ${isDark ? 'bg-[#0a0a0a]' : 'bg-white'} transition-colors duration-500`}>
         <div className="max-w-3xl mx-auto px-6">
           <div className="mb-12 text-center md:text-left">
             <span className="text-[#22c55e] font-black uppercase tracking-[0.4em] text-[10px] mb-3 block italic">Centro de Ayuda</span>
