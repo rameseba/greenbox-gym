@@ -37,10 +37,9 @@ const GRID_IMAGE = "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5
 const LOGO_URL = "https://i.ibb.co/PvkdX4JJ/1777485361988-edit-27623999535971.png";
 
 const CAROUSEL_IMAGES = [
-  "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200",
-  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200",
-  "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1200",
-  "https://images.unsplash.com/photo-1594882645126-14020914d58d?q=80&w=1200"
+  "/1.jpg",
+  "/2.jpg",
+  "/5.jpg"
 ];
 
 const MAP_PREVIEW = "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1600&auto=format&fit=crop";
