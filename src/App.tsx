@@ -596,7 +596,7 @@ export default function App() {
                     {BENEFITS[benefitIndex].desc}
                   </p>
                 </div>
-                <div className="hidden md:block relative group">
+                <div className="block mt-10 md:mt-0 relative group">
                    <div className={`absolute inset-0 ${isDark ? 'bg-[#22c55e]/5' : 'bg-[#22c55e]/10'} blur-[100px] rounded-full transition-all group-hover:bg-[#22c55e]/20`} />
                    <TerminalStatus isDark={isDark} />
                 </div>
@@ -792,14 +792,17 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {COACHES.map((coach, i) => (
               <motion.div 
                 key={i}
-                whileHover={{ scale: 1.02 }}
-                className={`group relative overflow-hidden rounded-[2rem] md:rounded-[3rem] border-4 ${isDark ? 'border-white/5 bg-zinc-900' : 'border-black/5 bg-white'} shadow-2xl`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -5 }}
+                className={`group relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border-2 ${isDark ? 'border-white/5 bg-zinc-900/50' : 'border-black/5 bg-white'} shadow-2xl transition-all duration-500`}
               >
-                <div className="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] relative overflow-hidden">
+                <div className="aspect-[4/5] relative overflow-hidden">
                   <img 
                     src={coach.image} 
                     alt={coach.name} 
@@ -807,11 +810,11 @@ export default function App() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
                 </div>
-                <div className="p-6 sm:p-8 md:p-12 relative">
-                  <h3 className="text-xl sm:text-2xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-1 leading-tight">{coach.name}</h3>
-                  <p className={`text-[10px] sm:text-xs md:text-lg font-black uppercase tracking-widest italic mb-4 md:mb-6 ${isDark ? 'text-white/60' : 'text-black/60'}`}>{coach.role}</p>
-                  <div className={`p-4 rounded-2xl ${isDark ? 'bg-black/40' : 'bg-neutral-100'} border-l-4 border-[#22c55e] italic`}>
-                    <p className={`text-xs sm:text-sm md:text-base font-bold ${isDark ? 'text-white/40' : 'text-black/40'}`}>"{coach.motto}"</p>
+                <div className="p-5 md:p-8 relative">
+                  <h3 className="text-xl md:text-2xl font-black italic uppercase text-[#22c55e] mb-1 leading-tight">{coach.name}</h3>
+                  <p className={`text-[9px] md:text-xs font-black uppercase tracking-widest italic mb-3 md:mb-4 ${isDark ? 'text-white/60' : 'text-black/60'}`}>{coach.role}</p>
+                  <div className={`p-3 md:p-4 rounded-xl ${isDark ? 'bg-black/40' : 'bg-neutral-100'} border-l-4 border-[#22c55e] italic`}>
+                    <p className={`text-[10px] md:text-xs font-bold ${isDark ? 'text-white/40' : 'text-black/40'}`}>"{coach.motto}"</p>
                   </div>
                 </div>
               </motion.div>
