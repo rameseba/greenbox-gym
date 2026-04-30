@@ -624,6 +624,47 @@ export default function App() {
         </div>
       </section>
 
+      {/* New "How to Get There" Section */}
+      <section className={`py-12 md:py-24 ${isDark ? 'bg-[#0a0a0a]' : 'bg-white'} transition-colors duration-500 overflow-hidden`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col items-center text-center mb-12 md:mb-16">
+            <motion.div 
+              initial={{ scale: 0, rotate: -20 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              className="w-24 h-24 md:w-32 md:h-32 mb-6 relative"
+            >
+              <div className="absolute inset-0 bg-[#22c55e]/20 blur-2xl rounded-full animate-pulse" />
+              <img 
+                src="/dumbbell.png" 
+                alt="Gym Dumbbell" 
+                className="w-full h-full object-contain relative z-10 drop-shadow-2xl"
+              />
+            </motion.div>
+            <h2 className={`text-4xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
+              COMO LLEGAR A <br className="md:hidden" /> <span className="text-[#22c55e]">TÚ GREENBOX 💚</span>
+            </h2>
+            <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-black uppercase tracking-[0.3em] text-[10px] md:text-sm italic`}>
+              Sigue nuestra ruta y llega directo al éxito
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto relative group">
+            <div className="absolute -inset-4 bg-[#22c55e] opacity-10 blur-3xl rounded-[2rem] md:rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
+            <div className={`relative border-4 md:border-[12px] ${isDark ? 'border-zinc-900 bg-black' : 'border-black bg-neutral-100'} shadow-2xl overflow-hidden rounded-[2rem] md:rounded-[3rem]`}>
+              <video 
+                controls 
+                className="w-full h-auto block"
+                poster={HERO_IMAGE}
+              >
+                <source src="/ComoLlegar.mp4" type="video/mp4" />
+                Tu navegador no soporta el elemento de video.
+              </video>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact & Location Section (Compact & Refined) */}
       <section id="contacto" className={`py-12 md:py-16 ${isDark ? 'bg-zinc-950' : 'bg-neutral-50'} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
