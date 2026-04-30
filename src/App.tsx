@@ -127,16 +127,22 @@ const PLANS = [
 
 const COACHES = [
   {
-    name: "Marco 'The Rock' Silva",
-    role: "Head Coach - Funcional",
-    image: "/coaches/coach1.png",
-    motto: "La técnica es la madre de la fuerza."
+    name: "ARI",
+    role: '"LA JEFA"',
+    image: "/coaches/coach1.jpg",
+    motto: "Determinación y liderazgo en cada entrenamiento."
   },
   {
-    name: "Elena 'Zen' Ramos",
-    role: "Mobility & Yoga",
-    image: "/coaches/coach2.png",
-    motto: "Un cuerpo móvil es un cuerpo eterno."
+    name: "Wilger",
+    role: '"THE ROCK"',
+    image: "/coaches/coach2.jpg",
+    motto: "Fuerza absoluta y técnica de acero."
+  },
+  {
+    name: "Fiama Rodriguez",
+    role: '"ROMA NO SE CONSTRUYÓ EN UN SOLO DÍA"',
+    image: "/coaches/coach3.jpg",
+    motto: "Paso a paso, construyendo resultados reales."
   }
 ];
 
