@@ -25,9 +25,11 @@ const WHATSAPP_NUMBER = '+584122753272';
 const WHATSAPP_MESSAGE = encodeURIComponent('¡Hola Green Box! Quiero más información.');
 const INSTAGRAM_HANDLE = 'greenbox_ve';
 const EMAIL_CONTACT = 'greenboxvenezuela@gmail.com';
-const LOCATION_VALENCIA = 'Valencia, Venezuela';
+const LOCATION_VALENCIA = 'Naguanagua, Valencia';
+const ADDRESS_FULL = 'Av. Bernardino López c/ calle Salom, Naguanagua';
 const MAP_LINK = 'https://maps.app.goo.gl/UovqNDRJdZoLLYax9';
 const SLOGAN = "Tu box verde 💚";
+const MISSION = "Salud física, fortaleza mental y comunidad.";
 
 // Imágenes de Unsplash con IDs robustos
 const HERO_IMAGE = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1600&auto=format&fit=crop";
@@ -153,7 +155,7 @@ const LogoSVG = ({ className = "", withText = true, isDark = true }: { className
           GREEN<span className="text-[#22c55e]">BOX</span>
         </h2>
         <span className={`text-[8px] sm:text-[10px] md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.4em] mt-0.5 md:mt-1 italic transition-colors duration-500 ${isDark ? 'text-[#22c55e]' : 'text-neutral-500'}`}>
-          {SLOGAN}
+          CROSSFIT • FUNCIONAL • COMUNIDAD
         </span>
       </div>
     )}
@@ -895,8 +897,8 @@ export default function App() {
                </div>
                
                <p className={`font-bold uppercase text-[10px] md:text-xs tracking-[0.2em] mb-8 leading-relaxed ${isDark ? 'text-white/40' : 'text-black/40'}`}>
-                 Av. 101 C. Real de los Sauces, <br/>
-                 Valencia, Carabobo.
+                 {ADDRESS_FULL}, <br/>
+                 Naguanagua, Edo. Carabobo.
                </p>
 
                <a 
