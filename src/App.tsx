@@ -541,12 +541,12 @@ export default function App() {
             </h2>
           </div>
 
-          <div className="max-w-5xl mx-auto relative group">
+          <div className="max-w-4xl mx-auto relative group">
             <div className="absolute -inset-6 bg-[#22c55e] opacity-10 blur-3xl rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
-            <div className={`relative border-4 md:border-[12px] ${isDark ? 'border-zinc-800' : 'border-black'} bg-black shadow-2xl overflow-hidden rounded-[2rem] md:rounded-[3rem]`}>
+            <div className={`relative border-2 md:border-[12px] ${isDark ? 'border-zinc-800' : 'border-black'} bg-black shadow-2xl overflow-hidden rounded-[1.5rem] md:rounded-[3rem]`}>
                <img 
                  src={SCHEDULE_IMAGE_URL} 
-                 className="w-full h-auto block hover:scale-[1.03] transition-transform duration-1000 ease-out"
+                 className="w-full h-auto block hover:scale-[1.03] transition-transform duration-1000 ease-out max-h-[85vh] object-contain"
                  alt="Horarios Oficiales GreenBox"
                />
             </div>
@@ -655,32 +655,32 @@ export default function App() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
             {PLANS.map((plan, i) => (
               <motion.div
                 key={i}
                 whileHover={{ y: -10 }}
-                className={`relative p-8 md:p-12 rounded-[2.5rem] border-2 transition-all duration-500 ${
+                className={`relative p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border-2 transition-all duration-500 flex flex-col ${
                   plan.recommended 
-                    ? 'border-[#22c55e] bg-[#22c55e]/5 shadow-[0_30px_100px_rgba(34,197,94,0.1)] scale-105 z-10' 
+                    ? 'border-[#22c55e] bg-[#22c55e]/5 shadow-[0_30px_100px_rgba(34,197,94,0.1)] lg:scale-105 z-10' 
                     : (isDark ? 'border-white/5 bg-zinc-900/50' : 'border-black/5 bg-neutral-50')
                 }`}
               >
                 {plan.recommended && (
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#22c55e] text-black px-6 py-1.5 rounded-full font-black uppercase text-[10px] tracking-widest italic shadow-xl">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#22c55e] text-black px-5 py-1 rounded-full font-black uppercase text-[9px] md:text-[10px] tracking-widest italic shadow-xl whitespace-nowrap">
                     Recomendado
                   </div>
                 )}
-                <h3 className={`text-2xl md:text-4xl font-black italic uppercase mb-2 ${isDark ? 'text-white' : 'text-black'}`}>{plan.name}</h3>
-                <div className="flex items-baseline gap-1 mb-8">
-                  <span className="text-4xl md:text-6xl font-black text-[#22c55e]">${plan.price}</span>
-                  <span className={`text-sm font-bold uppercase ${isDark ? 'text-white/40' : 'text-black/40'}`}>/ Mes</span>
+                <h3 className={`text-xl sm:text-2xl md:text-4xl font-black italic uppercase mb-2 ${isDark ? 'text-white' : 'text-black'}`}>{plan.name}</h3>
+                <div className="flex items-baseline gap-1 mb-6 md:mb-8">
+                  <span className="text-3xl sm:text-4xl md:text-6xl font-black text-[#22c55e]">${plan.price}</span>
+                  <span className={`text-xs md:text-sm font-bold uppercase ${isDark ? 'text-white/40' : 'text-black/40'}`}>/ Mes</span>
                 </div>
-                <ul className="space-y-4 mb-12">
+                <ul className="space-y-3 md:space-y-4 mb-8 md:mb-12 flex-grow">
                   {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-3">
-                      <Zap size={14} className="text-[#22c55e] shrink-0" />
-                      <span className={`text-sm font-bold uppercase italic tracking-tight ${isDark ? 'text-white/60' : 'text-black/60'}`}>{feature}</span>
+                    <li key={idx} className="flex items-start gap-2 md:gap-3">
+                      <Zap size={14} className="text-[#22c55e] shrink-0 mt-0.5" />
+                      <span className={`text-[11px] md:text-sm font-bold uppercase italic tracking-tight ${isDark ? 'text-white/60' : 'text-black/60'}`}>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -688,7 +688,7 @@ export default function App() {
                   href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${encodeURIComponent(`Hola! Quiero el plan ${plan.name}.`)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className={`w-full py-5 rounded-full font-black uppercase tracking-widest text-sm transition-all text-center block ${
+                  className={`w-full py-4 md:py-5 rounded-full font-black uppercase tracking-widest text-[11px] md:text-sm transition-all text-center block ${
                     plan.recommended 
                       ? 'bg-[#22c55e] text-black hover:bg-white hover:text-black shadow-lg shadow-[#22c55e]/20' 
                       : (isDark ? 'bg-white text-black hover:bg-[#22c55e] hover:text-white' : 'bg-black text-[#22c55e] hover:bg-[#22c55e] hover:text-white')
@@ -717,14 +717,14 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-16">
             {COACHES.map((coach, i) => (
               <motion.div 
                 key={i}
                 whileHover={{ scale: 1.02 }}
-                className={`group relative overflow-hidden rounded-[3rem] border-4 ${isDark ? 'border-white/5 bg-zinc-900' : 'border-black/5 bg-white'} shadow-2xl`}
+                className={`group relative overflow-hidden rounded-[2rem] md:rounded-[3rem] border-4 ${isDark ? 'border-white/5 bg-zinc-900' : 'border-black/5 bg-white'} shadow-2xl`}
               >
-                <div className="aspect-[4/5] relative overflow-hidden">
+                <div className="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] relative overflow-hidden">
                   <img 
                     src={coach.image} 
                     alt={coach.name} 
@@ -732,11 +732,11 @@ export default function App() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
                 </div>
-                <div className="p-8 md:p-12 relative">
-                  <h3 className="text-2xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-1">{coach.name}</h3>
-                  <p className={`text-sm md:text-lg font-black uppercase tracking-widest italic mb-6 ${isDark ? 'text-white/60' : 'text-black/60'}`}>{coach.role}</p>
+                <div className="p-6 sm:p-8 md:p-12 relative">
+                  <h3 className="text-xl sm:text-2xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-1 leading-tight">{coach.name}</h3>
+                  <p className={`text-[10px] sm:text-xs md:text-lg font-black uppercase tracking-widest italic mb-4 md:mb-6 ${isDark ? 'text-white/60' : 'text-black/60'}`}>{coach.role}</p>
                   <div className={`p-4 rounded-2xl ${isDark ? 'bg-black/40' : 'bg-neutral-100'} border-l-4 border-[#22c55e] italic`}>
-                    <p className={`text-sm md:text-base font-bold ${isDark ? 'text-white/40' : 'text-black/40'}`}>"{coach.motto}"</p>
+                    <p className={`text-xs sm:text-sm md:text-base font-bold ${isDark ? 'text-white/40' : 'text-black/40'}`}>"{coach.motto}"</p>
                   </div>
                 </div>
               </motion.div>
