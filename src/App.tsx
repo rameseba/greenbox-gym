@@ -80,6 +80,13 @@ const TERMINAL_BENEFITS = [
   "Diversidad constante de ejercicios"
 ];
 
+const HERO_PHRASES = [
+  "SÉ FUERTE", "SIN LÍMITES", "TU BOX VERDE", "EVOLUCIONA", "DISCIPLINA", 
+  "RESULTADOS", "COMUNIDAD", "PERSISTENCIA", "MÁS FUERTE", "SUPÉRATE", 
+  "EL MOMENTO ES HOY", "FUERZA PURA", "PASIÓN BOX", "ACTITUD GREEN", "TRANSFORMACIÓN", 
+  "MENTE DE ACERO", "DOMINA EL WOD", "ESTILO DE VIDA", "POTENCIA TOTAL", "GREEN BOX VE"
+];
+
 const BENEFITS = [
   {
     icon: <TrendingUp className="w-6 h-6" />,
@@ -414,12 +421,20 @@ const Navbar = ({ isDark, toggleTheme }: { isDark: boolean, toggleTheme: () => v
 export default function App() {
   const [isDark, setIsDark] = useState(true);
   const [benefitIndex, setBenefitIndex] = useState(0);
+  const [heroIndex, setHeroIndex] = useState(0);
   const [formData, setFormData] = useState({
     cedula: '',
     nombre: '',
     apellido: '',
     correo: ''
   });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % HERO_PHRASES.length);
+    }, 10000);
+    return () => clearInterval(timer);
+  }, []);
 
   const toggleTheme = () => setIsDark(!isDark);
 
@@ -463,8 +478,8 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-[clamp(2.5rem,12vw,9rem)] font-black leading-[0.9] tracking-tighter mb-8 italic uppercase text-white shadow-text px-2">
-              SÉ <span className="text-[#1a8d3c]">FUERTE</span>
+            <h1 className="text-[clamp(2.5rem,10vw,8rem)] font-black leading-[0.9] tracking-tighter mb-8 italic uppercase text-white shadow-text px-2 min-h-[1.2em] flex items-center justify-center">
+              <ScrambledText text={HERO_PHRASES[heroIndex]} />
             </h1>
             <p className="text-xs sm:text-lg md:text-2xl text-white/60 font-black uppercase tracking-[0.1em] md:tracking-widest mb-12 max-w-3xl mx-auto italic px-4 leading-relaxed">
               Box Funcional Premium • {LOCATION_VALENCIA}
