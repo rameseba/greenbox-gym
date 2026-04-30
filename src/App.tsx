@@ -47,24 +47,20 @@ const MAP_PREVIEW = "https://images.unsplash.com/photo-1526628953301-3e589a6a8b7
 
 const FAQS = [
   {
-    q: "¿Qué es GreenBox?",
-    a: "GreenBox es un box de entrenamiento funcional premium en Valencia, enfocado en la técnica correcta, la salud integral y el espíritu de comunidad. No somos solo un gimnasio, somos tu espacio para evolucionar."
+    q: "¿Qué es GreenBox VE?",
+    a: "Somos un Centro de CrossFit especializado en Valencia donde no importa tu edad ni tu experiencia. El camino empieza aquí \"En tú Box verde 💚\""
   },
   {
-    q: "¿Necesito experiencia previa para entrenar?",
-    a: "Para nada. Nuestros entrenadores adaptan cada rutina a tu nivel de capacidad actual. Ya seas un atleta experimentado o estés empezando desde cero, el Box Verde es para ti."
+    q: "¿Cómo son Nuestras Clases?",
+    a: "Nuestras clases están diseñadas para todas las edades y niveles de condición física. No importa si eres principiante o un atleta experimentado, aquí encontrarás un espacio funcional y motivador donde cada uno puede desafiarse a sí mismo 💚."
   },
   {
-    q: "¿Cómo reservo mi cupo?",
-    a: "Es muy sencillo. Solo debes completar el formulario de inscripción que está arriba o contactarnos vía WhatsApp. Debido a nuestra atención personalizada, los cupos por hora son limitados."
+    q: "¿Dan días de Prueba?",
+    a: "¡Sí! Te regalamos Dos días de prueba para que puedas disfrutarlos Completamente Gratis."
   },
   {
-    q: "¿Tienen estacionamiento?",
-    a: "Sí, contamos con un área segura para que puedas dejar tu vehículo mientras te enfocas al 100% en tu entrenamiento."
-  },
-  {
-    q: "¿Cuál es la edad mínima para entrenar?",
-    a: "Nuestros programas están diseñados para mayores de 15 años. Para menores de edad, se requiere la autorización firmada por su representante legal."
+    q: "¿Hay competencias en GreenBox?",
+    a: "¡Sí! Hacemos competencias donde tenemos Sponsors de Alimentación saludable (Yogurt, Barras de Proteína, Empanadas, Implementos deportivos, Ropa deportiva, Pizzas y más!). No es solo una competencia, es para agradecer esta maravillosa familia Green Box. Juntos, seguimos creciendo y creando momentos inolvidables. 💚"
   }
 ];
 
