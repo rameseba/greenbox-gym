@@ -171,6 +171,31 @@ const LogoSVG = ({ className = "", withText = true, isDark = true }: { className
   </div>
 );
 
+const ScrambledText = ({ text }: { text: string }) => {
+  const [displayText, setDisplayText] = useState(text);
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  useEffect(() => {
+    let iteration = 0;
+    const interval = setInterval(() => {
+      setDisplayText(text.split("")
+        .map((char, index) => {
+          if (index < iteration) return text[index];
+          if (char === " ") return " ";
+          return chars[Math.floor(Math.random() * 26)];
+        })
+        .join("")
+      );
+
+      if (iteration >= text.length) clearInterval(interval);
+      iteration += 1 / 3;
+    }, 30);
+    return () => clearInterval(interval);
+  }, [text]);
+
+  return <>{displayText}</>;
+};
+
 const TerminalStatus = ({ isDark }: { isDark: boolean }) => {
   const [index, setIndex] = useState(0);
 
@@ -182,18 +207,19 @@ const TerminalStatus = ({ isDark }: { isDark: boolean }) => {
   }, []);
 
   return (
-    <div className={`relative z-10 border-4 ${isDark ? 'border-white/5 bg-neutral-900/80' : 'border-black/5 bg-white/80'} p-10 rounded-3xl backdrop-blur-md transition-colors duration-500`}>
+    <div className={`relative z-10 border-4 ${isDark ? 'border-white/5 bg-neutral-900/80' : 'border-black/5 bg-white/80'} p-10 rounded-3xl backdrop-blur-md transition-colors duration-500 min-h-[200px] flex flex-col justify-center`}>
       <div className="flex items-center gap-4 mb-6">
         <div className="w-3 h-3 rounded-full bg-[#22c55e]" />
         <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
         <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
       </div>
-      <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-mono text-[10px] uppercase tracking-widest leading-loose`}>
-        // Protocolo GreenBox v5.0 <br/>
-        // {TERMINAL_BENEFITS[index]} <br/>
-        // Valencia, Carabobo <br/>
-        // Tu box verde 💚
-      </p>
+      <div className={`${isDark ? 'text-white/40' : 'text-black/40'} font-mono text-[10px] md:text-[11px] uppercase tracking-widest leading-loose`}>
+        <p className="mb-1">// ¿Conoces los beneficios de hacer CrossFit?</p>
+        <p className={`text-[#22c55e] font-black mb-1`}>
+          // <ScrambledText text={TERMINAL_BENEFITS[index].toUpperCase()} />
+        </p>
+        <p>// Tu box verde 💚</p>
+      </div>
     </div>
   );
 };
