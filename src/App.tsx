@@ -1040,10 +1040,18 @@ export default function App() {
           </div>
 
           {/* Copyright Section */}
-          <div className="pt-10 border-t border-white/5 text-center">
+          <div className="pt-10 border-t border-white/5 text-center flex flex-col gap-2">
             <p className={`text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] italic transition-colors ${isDark ? 'text-white/20' : 'text-black/20'}`}>
               © {new Date().getFullYear()} GREENBOX FITNESS CLUBS. ALL RIGHTS RESERVED.
             </p>
+            <a 
+              href="https://instagram.com/rameseba" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-[8px] md:text-[9px] font-bold uppercase tracking-[0.2em] transition-all hover:text-[#22c55e] ${isDark ? 'text-white/10' : 'text-black/10'}`}
+            >
+              Diseñado por @rameseba
+            </a>
           </div>
         </div>
       </footer>
