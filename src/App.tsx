@@ -22,7 +22,7 @@ import {
 // --- Constantes ---
 const PRIMARY_GREEN = '#22c55e'; // Verde más vibrante y representativo del logo
 const WHATSAPP_NUMBER = '+584122753272'; 
-const WHATSAPP_MESSAGE = encodeURIComponent('¡Hola Green Box! Quiero más información.');
+const WHATSAPP_MESSAGE = encodeURIComponent('Hi! GreenBox VE - Quiero informacion sobre la Prueba Gratis de 2 dias que vi en su pagina Web, me interesa!');
 const INSTAGRAM_HANDLE = 'greenbox_ve';
 const EMAIL_CONTACT = 'greenboxvenezuela@gmail.com';
 const LOCATION_VALENCIA = 'Naguanagua, Valencia';
@@ -410,7 +410,7 @@ export default function App() {
                 rel="noreferrer"
                 className="w-full sm:w-auto bg-[#22c55e] text-white px-8 md:px-14 py-5 md:py-6 font-black uppercase text-sm md:text-xl tracking-widest transition-all hover:bg-white hover:text-black active:scale-95 flex items-center justify-center gap-4 shadow-2xl"
               >
-                Prueba Gratis <ArrowRight className="animate-pulse" size={20} />
+                PRUEBA GRATIS <ArrowRight className="animate-pulse" size={20} />
               </a>
               <a 
                 href={`https://instagram.com/${INSTAGRAM_HANDLE}`}
