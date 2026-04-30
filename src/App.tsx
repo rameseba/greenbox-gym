@@ -15,6 +15,9 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
+  Facebook,
+  Youtube,
+  Linkedin,
   Moon,
   Sun
 } from 'lucide-react';
@@ -904,53 +907,82 @@ export default function App() {
         </div>
       </section>
 
-      {/* Compact & Refined Footer */}
-      <footer className={`py-8 md:py-10 border-t transition-colors duration-500 ${isDark ? 'bg-zinc-950 border-white/5' : 'bg-white border-neutral-200'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4">
-          <LogoSVG 
-            isDark={isDark} 
-            className="scale-50 md:scale-[0.6] origin-center md:origin-left" 
-            withText 
-          />
-          
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
-            {/* Brissport Sponsor (Discreet) */}
-            <a 
-              href="https://instagram.com/brissport" 
-              target="_blank" 
-              rel="noreferrer" 
-              className={`group flex items-center gap-2.5 px-3 py-1.5 rounded-xl border transition-all ${isDark ? 'border-white/5 hover:bg-white/5' : 'border-black/5 hover:bg-black/5'}`}
-              title="Brissport - Implementos Deportivos"
-            >
-              <div className="w-6 h-6 rounded-lg bg-white p-0.5 flex items-center justify-center overflow-hidden">
-                <img src="/brissport.jpg" alt="Brissport" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className={`text-[9px] font-black uppercase tracking-tight ${isDark ? 'text-white/40 group-hover:text-white' : 'text-black/40 group-hover:text-black'}`}>Sponsor Oficial</span>
-                <span className="text-[8px] font-bold text-[#22c55e] uppercase tracking-widest">Brissport</span>
-              </div>
-            </a>
+      {/* Sponsors Strip (Inspired by Example) */}
+      <div className={`py-8 border-t ${isDark ? 'bg-zinc-900/50 border-white/5' : 'bg-neutral-50 border-black/5'} transition-colors duration-500`}>
+        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-30 hover:opacity-80 transition-all duration-700">
+          <img src="/brissport.jpg" alt="Brissport" className="h-6 md:h-10 object-contain grayscale hover:grayscale-0 transition-all cursor-pointer" />
+          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>Gatorade</span>
+          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>TRX</span>
+          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>MyZone</span>
+          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>Rogue</span>
+        </div>
+      </div>
 
-            <div className={`h-6 w-px ${isDark ? 'bg-white/10' : 'bg-black/10'} hidden md:block`} />
+      {/* Main Footer (Energy Club Style) */}
+      <footer className={`py-16 md:py-24 border-t transition-colors duration-500 ${isDark ? 'bg-black border-white/5' : 'bg-white border-neutral-200'}`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center mb-20">
+            {/* Column 1: Navigation Links */}
+            <div className="flex flex-col gap-4 text-center md:text-left">
+              <a href="#faqs" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Preguntas frecuentes</a>
+              <a href={`mailto:${EMAIL_CONTACT}`} className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Contacto: {EMAIL_CONTACT}</a>
+              <a href="#contacto" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Sede Naguanagua</a>
+              <a href="#terminos" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Términos y condiciones</a>
+            </div>
 
-            <a 
-              href={`https://instagram.com/${INSTAGRAM_HANDLE}`} 
-              target="_blank" 
-              rel="noreferrer" 
-              className={`text-sm font-bold uppercase tracking-widest transition-all inline-flex items-center gap-2 ${isDark ? 'text-white/40 hover:text-[#22c55e]' : 'text-black/40 hover:text-[#22c55e]'}`}
-            >
-              <Instagram size={16} />
-              <span className="hidden sm:inline">Instagram</span>
-            </a>
-            
-            <div className={`h-6 w-px ${isDark ? 'bg-white/10' : 'bg-black/10'} hidden md:block`} />
-            
-            <p className={`text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] transition-colors ${isDark ? 'text-white/20' : 'text-black/20'}`}>
-              &copy; {new Date().getFullYear()} GREENBOX GYM.
+            {/* Column 2: Social Media Circles */}
+            <div className="flex justify-center gap-5">
+              {[
+                { icon: <Linkedin size={20} />, href: "#", label: "LinkedIn" },
+                { icon: <Facebook size={20} />, href: "#", label: "Facebook" },
+                { icon: <Instagram size={20} />, href: `https://instagram.com/${INSTAGRAM_HANDLE}`, label: "Instagram" },
+                { icon: <Youtube size={20} />, href: "#", label: "YouTube" }
+              ].map((social, i) => (
+                <a 
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-500 border ${
+                    isDark 
+                      ? 'bg-zinc-900/50 border-white/5 text-white hover:bg-[#22c55e] hover:text-black hover:border-[#22c55e] shadow-lg hover:shadow-[#22c55e]/20' 
+                      : 'bg-neutral-50 border-black/5 text-black hover:bg-[#22c55e] hover:text-white hover:border-[#22c55e] shadow-sm'
+                  }`}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+
+            {/* Column 3: Brand Logo */}
+            <div className="flex justify-center md:justify-end">
+              <LogoSVG isDark={isDark} className="scale-75 md:scale-100" />
+            </div>
+          </div>
+
+          {/* Copyright Section */}
+          <div className="pt-10 border-t border-white/5 text-center">
+            <p className={`text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] italic transition-colors ${isDark ? 'text-white/20' : 'text-black/20'}`}>
+              © {new Date().getFullYear()} GREENBOX FITNESS CLUBS. ALL RIGHTS RESERVED.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <a 
+        href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${WHATSAPP_MESSAGE}`}
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-6 right-6 z-[60] bg-[#22c55e] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-90 transition-all group animate-bounce-slow"
+        title="Contáctanos por WhatsApp"
+      >
+        <MessageCircle size={28} className="md:size-32" />
+        <span className="absolute right-full mr-4 bg-black text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl border border-white/10">
+          ¿En qué podemos ayudarte?
+        </span>
+      </a>
     </div>
   );
 }
