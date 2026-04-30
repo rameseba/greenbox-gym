@@ -15,9 +15,6 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
-  Facebook,
-  Youtube,
-  Linkedin,
   Moon,
   Sun
 } from 'lucide-react';
@@ -911,10 +908,6 @@ export default function App() {
       <div className={`py-8 border-t ${isDark ? 'bg-zinc-900/50 border-white/5' : 'bg-neutral-50 border-black/5'} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-30 hover:opacity-80 transition-all duration-700">
           <img src="/brissport.jpg" alt="Brissport" className="h-6 md:h-10 object-contain grayscale hover:grayscale-0 transition-all cursor-pointer" />
-          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>Gatorade</span>
-          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>TRX</span>
-          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>MyZone</span>
-          <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.4em] ${isDark ? 'text-white' : 'text-black'}`}>Rogue</span>
         </div>
       </div>
 
@@ -927,16 +920,12 @@ export default function App() {
               <a href="#faqs" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Preguntas frecuentes</a>
               <a href={`mailto:${EMAIL_CONTACT}`} className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Contacto: {EMAIL_CONTACT}</a>
               <a href="#contacto" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Sede Naguanagua</a>
-              <a href="#terminos" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Términos y condiciones</a>
             </div>
 
             {/* Column 2: Social Media Circles */}
             <div className="flex justify-center gap-5">
               {[
-                { icon: <Linkedin size={20} />, href: "#", label: "LinkedIn" },
-                { icon: <Facebook size={20} />, href: "#", label: "Facebook" },
-                { icon: <Instagram size={20} />, href: `https://instagram.com/${INSTAGRAM_HANDLE}`, label: "Instagram" },
-                { icon: <Youtube size={20} />, href: "#", label: "YouTube" }
+                { icon: <Instagram size={20} />, href: `https://instagram.com/${INSTAGRAM_HANDLE}`, label: "Instagram" }
               ].map((social, i) => (
                 <a 
                   key={i}
