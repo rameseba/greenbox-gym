@@ -33,7 +33,7 @@ const MISSION = "Salud física, fortaleza mental y comunidad.";
 
 // Recursos Visuales
 const HERO_IMAGE = "/4.jpg";
-const GRID_IMAGE = "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=1600&auto=format&fit=crop";
+const GRID_IMAGE = "/3.jpg";
 const LOGO_URL = "https://i.ibb.co/PvkdX4JJ/1777485361988-edit-27623999535971.png";
 
 const CAROUSEL_IMAGES = [
