@@ -904,6 +904,42 @@ export default function App() {
         </div>
       </section>
 
+      {/* Sponsors Section */}
+      <section className={`py-12 md:py-16 border-t ${isDark ? 'bg-[#050505] border-white/5' : 'bg-neutral-50 border-neutral-100'} transition-colors duration-500 overflow-hidden`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col items-center">
+            <span className="text-[#22c55e] font-black uppercase tracking-[0.4em] text-[10px] mb-10 block italic">Aliados Estratégicos</span>
+            
+            <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20">
+              {/* Sponsor 1: Brissport */}
+              <a 
+                href="https://instagram.com/brissport" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative flex flex-col items-center gap-4 transition-all duration-500"
+              >
+                <div className="relative">
+                  <div className="absolute -inset-2 bg-[#22c55e] rounded-full opacity-0 group-hover:opacity-20 blur-md transition-all duration-500" />
+                  <div className={`relative w-20 h-20 md:w-24 md:h-24 rounded-full border-2 ${isDark ? 'border-white/10' : 'border-black/5'} group-hover:border-[#22c55e] p-1 transition-all duration-500 bg-white overflow-hidden shadow-xl`}>
+                    <img 
+                      src="https://instagram.fscl27-1.fna.fbcdn.net/v/t51.2885-19/449642216_1627063244745910_3921186997794491296_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby44NTguYzIifQ&_nc_ht=instagram.fscl27-1.fna.fbcdn.net&_nc_cat=110&_nc_oc=Q6cZ2gGRyr7g9aGChefEC1sCCq-dOzjCutBmI3GYT_RhhrwBEn1i59jplJBX_tnAf68pkpg&_nc_ohc=C_A5ma0a0XcQ7kNvwGW0M_Y&_nc_gid=dCk10S7H9JBaZCytqgvpUg&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_Af1A1amHDAR9es4-zuoLrb7Zn_ckCKa9HiQyRYNUsRvmCA&oe=69F98083&_nc_sid=7a9f4b" 
+                      alt="Brissport Logo" 
+                      className="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-500 scale-95"
+                    />
+                  </div>
+                </div>
+                <div className="text-center transform group-hover:translate-y-1 transition-transform duration-500">
+                  <p className={`text-xs md:text-sm font-black uppercase tracking-[0.2em] ${isDark ? 'text-white' : 'text-black'}`}>BRISSPORT</p>
+                  <p className="text-[9px] font-black text-[#22c55e] uppercase tracking-tighter italic">Implementos Deportivos</p>
+                </div>
+              </a>
+              
+              {/* Espacio para futuros sponsors (Placeholders sutiles si se desea, o dejar solo Brissport) */}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Compact & Refined Footer */}
       <footer className={`py-6 md:py-8 border-t transition-colors duration-500 ${isDark ? 'bg-zinc-950 border-white/5' : 'bg-white border-neutral-200'}`}>
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4">
