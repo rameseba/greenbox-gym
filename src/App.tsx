@@ -20,7 +20,6 @@ import { RotatingTestimonial } from './components/RotatingTestimonial';
 import { FAQItem } from './components/FAQItem';
 import { ImageCarousel } from './components/ImageCarousel';
 import { Navbar } from './components/Navbar';
-import { ModernImage } from './components/ModernImage';
 
 // Constantes
 import { 
@@ -88,16 +87,18 @@ export default function App() {
       <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-32">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-black/70 z-10" />
-          <motion.img 
+          <motion.div
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
-            src={HERO_IMAGE} 
-            alt="Hero Background" 
-            className="w-full h-full object-cover grayscale-[40%]"
-            // @ts-ignore
-            fetchpriority="high"
-          />
+            className="w-full h-full"
+          >
+            <img 
+              src={HERO_IMAGE} 
+              alt="Hero Background" 
+              className="w-full h-full object-cover grayscale-[40%]"
+            />
+          </motion.div>
         </div>
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center">
