@@ -19,7 +19,7 @@ export const TerminalStatus = ({ isDark }: { isDark: boolean }) => {
         <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
         <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
       </div>
-      <div className={`${isDark ? 'text-white/40' : 'text-black/40'} font-mono text-[10px] md:text-[11px] uppercase tracking-widest leading-loose`}>
+      <div className={`${isDark ? 'text-white/80' : 'text-black/80'} font-mono text-[10px] md:text-[11px] uppercase tracking-widest leading-loose`}>
         <p className="mb-1">// ¿Conoces los beneficios de hacer CrossFit?</p>
         <p className={`text-[#22c55e] font-black mb-1`}>
           // <ScrambledText text={TERMINAL_BENEFITS[index].toUpperCase()} />

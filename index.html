@@ -1,15 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="preload" href="https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm3Kz-C8.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Estilos Críticos (Inlined) para evitar FOUC -->
+    <style>
+      :root { --gb-green: #22c55e; --gb-dark: #09090b; }
+      body { background-color: var(--gb-dark); color: white; margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+      .hero-bg-fallback { background-color: #000; position: fixed; inset: 0; z-index: -1; }
+    </style>
+
+    <!-- Preloads Críticos (LCP) -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm3Kz-C8.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" as="image" href="/4-m.avif" media="(max-width: 768px)" type="image/avif">
+    
+    <!-- Título y Meta -->
     <title>GreenBox Gym - Sitio Web Oficial</title>
-    <meta name="description" content="GreenBox Gym en Naguanagua, Valencia. CrossFit, Entrenamiento Funcional y Comunidad. ¡Ven por tu prueba gratis de 2 días!" />
+    <meta name="description" content="GreenBox Gym en Naguanagua. CrossFit y Funcional." />
+    <meta name="theme-color" content="#22c55e" />
+    <link rel="icon" type="image/avif" href="/logo.avif" />
     <meta name="keywords" content="Gym, CrossFit, Valencia, Naguanagua, Fitness, Entrenamiento Funcional, GreenBox" />
     <meta property="og:title" content="GreenBox Gym - Tu Box Verde en Naguanagua" />
     <meta property="og:description" content="Salud física, fortaleza mental y comunidad. ¡Inscríbete hoy!" />

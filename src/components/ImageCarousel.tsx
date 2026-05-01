@@ -27,8 +27,10 @@ export const ImageCarousel = () => {
         >
           <ModernImage 
             src={CAROUSEL_IMAGES[index]} 
-            alt="Vida en el Box" 
+            alt="Vida en el Box - Entrenamiento en GreenBox Gym" 
             className="w-full h-full object-cover grayscale" 
+            width={800}
+            height={533}
           />
         </motion.div>
       </AnimatePresence>

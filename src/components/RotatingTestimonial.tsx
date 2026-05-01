@@ -18,7 +18,7 @@ export const RotatingTestimonial = ({ items, isDark, name, role }: { items: stri
       </p>
       <div>
         <p className="text-[#22c55e] font-black uppercase tracking-widest italic">{name}</p>
-        <p className={`text-xs uppercase font-bold tracking-tight ${isDark ? 'text-white/20' : 'text-black/20'}`}>{role}</p>
+        <p className={`text-xs uppercase font-bold tracking-tight ${isDark ? 'text-white/90' : 'text-black/90'}`}>{role}</p>
       </div>
     </div>
   );

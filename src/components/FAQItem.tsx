@@ -13,7 +13,8 @@ export const FAQItem = ({ q, a, isDark }: { q: string, a: string, isDark: boolea
     }`}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-5 text-left flex justify-between items-center gap-4 group"
+        className="w-full px-6 py-5 text-left flex justify-between items-center gap-4 group focus-visible:ring-2 focus-visible:ring-[#22c55e] outline-none"
+        aria-expanded={isOpen}
       >
         <span className={`text-sm md:text-base font-black uppercase tracking-tight transition-colors ${
           isOpen ? 'text-[#22c55e]' : (isDark ? 'text-white/80' : 'text-black/80')

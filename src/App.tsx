@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Instagram, 
@@ -15,12 +15,14 @@ import {
 // Componentes
 import { LogoSVG } from './components/Logo';
 import { ScrambledText } from './components/ScrambledText';
-import { TerminalStatus } from './components/TerminalStatus';
-import { RotatingTestimonial } from './components/RotatingTestimonial';
-import { FAQItem } from './components/FAQItem';
-import { ImageCarousel } from './components/ImageCarousel';
 import { Navbar } from './components/Navbar';
 import { ModernImage } from './components/ModernImage';
+
+// Lazy loaded components
+const TerminalStatus = lazy(() => import('./components/TerminalStatus').then(m => ({ default: m.TerminalStatus })));
+const RotatingTestimonial = lazy(() => import('./components/RotatingTestimonial').then(m => ({ default: m.RotatingTestimonial })));
+const FAQItem = lazy(() => import('./components/FAQItem').then(m => ({ default: m.FAQItem })));
+const ImageCarousel = lazy(() => import('./components/ImageCarousel').then(m => ({ default: m.ImageCarousel })));
 
 // Constantes
 import { 
@@ -82,43 +84,49 @@ export default function App() {
 
   return (
     <div className={`min-h-screen ${isDark ? 'bg-zinc-950 text-white' : 'bg-neutral-50 text-black'} selection:bg-[#22c55e] selection:text-black overflow-x-hidden font-sans transition-colors duration-700`}>
+      {/* Skip to Content Link */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] bg-[#22c55e] text-black px-6 py-3 rounded-full font-black uppercase text-sm shadow-2xl"
+      >
+        Saltar al contenido
+      </a>
+
       <Navbar isDark={isDark} toggleTheme={toggleTheme} />
+
+      <main id="main-content">
 
       {/* Hero Section */}
       <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-32">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-black/70 z-10" />
-          <motion.div
-            initial={{ scale: 1.15 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="w-full h-full"
-          >
+          <div className="absolute inset-0">
             <ModernImage 
               src={HERO_IMAGE} 
               alt="Hero Background" 
               className="w-full h-full object-cover grayscale-[40%]"
               fetchpriority="high"
               loading="eager"
+              width={1200}
+              height={800}
             />
-          </motion.div>
+          </div>
         </div>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
-            initial={{ opacity: 1, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center"
           >
             <h1 className="text-[clamp(2.5rem,10vw,8rem)] font-black leading-[0.9] tracking-tighter mb-8 italic uppercase text-white shadow-text px-2 min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-[0.3em]">
-              <ScrambledText text={HERO_PHRASES[heroIndex].split(' ')[0]} />
+              <span>{HERO_PHRASES[heroIndex].split(' ')[0]}</span>
               {HERO_PHRASES[heroIndex].split(' ').length > 1 && (
                 <span className="text-[#1a8d3c]">
-                  <ScrambledText text={HERO_PHRASES[heroIndex].split(' ').slice(1).join(' ')} />
+                  {HERO_PHRASES[heroIndex].split(' ').slice(1).join(' ')}
                 </span>
               )}
             </h1>
-            <p className="text-xs sm:text-lg md:text-2xl text-white/60 font-black uppercase tracking-[0.1em] md:tracking-widest mb-12 max-w-3xl mx-auto italic px-4 leading-relaxed">
+            <p className="text-xs sm:text-lg md:text-2xl text-white font-black uppercase tracking-[0.1em] md:tracking-widest mb-12 max-w-3xl mx-auto italic px-4 leading-relaxed">
               Box Funcional Premium • {LOCATION_VALENCIA}
             </p>
             <div className="flex flex-col sm:flex-row gap-5 md:gap-8 justify-center items-center px-4">
@@ -126,15 +134,17 @@ export default function App() {
                 href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${WHATSAPP_MESSAGE}`}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto bg-[#22c55e] text-white px-8 md:px-14 py-5 md:py-6 font-black uppercase text-sm md:text-xl tracking-widest transition-all hover:bg-white hover:text-black active:scale-95 flex items-center justify-center gap-4 shadow-2xl"
+                className="w-full sm:w-auto bg-[#22c55e] text-black px-8 md:px-14 py-5 md:py-6 font-black uppercase text-sm md:text-xl tracking-widest transition-all hover:bg-white hover:text-black active:scale-95 flex items-center justify-center gap-4 shadow-2xl"
+                aria-label="Obtener una prueba gratis de 2 días en GreenBox"
               >
-                PRUEBA GRATIS <ArrowRight className="animate-pulse" size={20} />
+                PRUEBA GRATIS <ArrowRight className="animate-pulse" size={20} aria-hidden="true" />
               </a>
               <a 
                 href={`https://instagram.com/${INSTAGRAM_HANDLE}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-4 text-white/50 font-black uppercase tracking-widest text-[10px] md:text-sm hover:text-[#22c55e] transition-all py-2"
+                className="flex items-center gap-4 text-white/90 font-black uppercase tracking-widest text-[10px] md:text-sm hover:text-[#22c55e] transition-all py-2"
+                aria-label="Seguir a GreenBox en Instagram"
               >
                 <Instagram size={24} /> @{INSTAGRAM_HANDLE}
               </a>
@@ -153,7 +163,7 @@ export default function App() {
           <h2 className="text-[clamp(2.5rem,8vw,6rem)] font-black mb-6 italic leading-[0.85] text-black uppercase tracking-tighter relative z-10">
             TU CUERPO <br /> <span className="drop-shadow-sm">TU REGLAS.</span>
           </h2>
-          <p className="text-black/80 text-sm sm:text-lg md:text-xl font-bold italic mb-10 max-w-lg uppercase tracking-tight relative z-10 leading-tight">
+          <p className="text-black font-bold italic mb-10 max-w-lg uppercase tracking-tight relative z-10 leading-tight text-sm sm:text-lg md:text-xl">
             Valencia tiene un nuevo estándar. Entrenamiento funcional intenso para los que no se conforman con lo básico.
           </p>
         </div>
@@ -161,7 +171,9 @@ export default function App() {
           <ModernImage 
             src={GRID_IMAGE} 
             className={`absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000 grayscale ${isDark ? 'opacity-30' : 'opacity-60'} transition-opacity duration-500`}
-            alt="Gym Box Training"
+            alt="Atleta entrenando en GreenBox Gym"
+            width={800}
+            height={800}
           />
           <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent' : 'bg-gradient-to-t from-white via-transparent to-transparent opacity-40'} transition-all`} />
           <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 max-w-[80%]">
@@ -192,7 +204,7 @@ export default function App() {
                   </div>
                   <div>
                     <h3 className={`text-xl md:text-2xl font-black italic uppercase mb-2 tracking-tighter ${isDark ? 'text-white' : 'text-black'}`}>{benefit.title}</h3>
-                    <p className={`font-medium text-sm md:text-base italic leading-relaxed ${isDark ? 'text-white/50' : 'text-black/50'}`}>{benefit.desc}</p>
+                    <p className={`font-medium text-sm md:text-base italic leading-relaxed ${isDark ? 'text-white/80' : 'text-black/70'}`}>{benefit.desc}</p>
                   </div>
                 </div>
               ))}
@@ -218,17 +230,19 @@ export default function App() {
           <div className="max-w-4xl mx-auto relative group">
             <div className="absolute -inset-6 bg-[#22c55e] opacity-10 blur-3xl rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
             <div className={`relative border-2 md:border-[12px] ${isDark ? 'border-zinc-800' : 'border-black'} bg-black shadow-2xl overflow-hidden rounded-[1.5rem] md:rounded-[3rem]`}>
-               <ModernImage 
-                 src={SCHEDULE_IMAGE_URL} 
-                 className="w-full h-auto block hover:scale-[1.03] transition-transform duration-1000 ease-out max-h-[85vh] object-contain"
-                 alt="Horarios Oficiales GreenBox"
-               />
+                 <ModernImage 
+                   src={SCHEDULE_IMAGE_URL} 
+                   className="w-full h-auto block hover:scale-[1.03] transition-transform duration-1000 ease-out max-h-[85vh] object-contain"
+                   alt="Horarios de clases de CrossFit y Funcional en GreenBox"
+                   width={1000}
+                   height={800}
+                 />
             </div>
           </div>
           
           <div className="mt-12 md:mt-16 max-w-2xl mx-auto">
             <div className={`${isDark ? 'bg-zinc-900 shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-white/5' : 'bg-white shadow-[0_20px_60px_rgba(34,197,94,0.1)] border-neutral-100'} rounded-[2rem] p-8 md:p-14 border transition-all duration-700 relative overflow-hidden`}>
-              <div className="absolute -top-10 -right-10 opacity-[0.03] pointer-events-none">
+              <div className="absolute -top-10 -right-10 opacity-[0.05] pointer-events-none">
                 <LogoSVG isDark={isDark} withText={false} className="scale-[3] rotate-12" />
               </div>
               
@@ -242,23 +256,25 @@ export default function App() {
               <form onSubmit={handleWhatsAppSend} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic">Cédula</label>
+                    <label htmlFor="cedula" className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic cursor-pointer">Cédula</label>
                     <input 
+                      id="cedula"
                       type="number" 
                       required
                       placeholder="Número de identidad"
-                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] font-bold outline-none transition-all placeholder:text-neutral-500`}
+                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] focus:ring-2 focus:ring-[#22c55e]/20 font-bold outline-none transition-all placeholder:text-neutral-500`}
                       value={formData.cedula}
                       onChange={(e) => setFormData({...formData, cedula: e.target.value})}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic">Nombre</label>
+                    <label htmlFor="nombre" className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic cursor-pointer">Nombre</label>
                     <input 
+                      id="nombre"
                       type="text" 
                       required
                       placeholder="Tu nombre"
-                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] font-bold outline-none transition-all placeholder:text-neutral-500`}
+                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] focus:ring-2 focus:ring-[#22c55e]/20 font-bold outline-none transition-all placeholder:text-neutral-500`}
                       value={formData.nombre}
                       onChange={(e) => setFormData({...formData, nombre: e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '')})}
                     />
@@ -267,23 +283,25 @@ export default function App() {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic">Apellido</label>
+                    <label htmlFor="apellido" className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic cursor-pointer">Apellido</label>
                     <input 
+                      id="apellido"
                       type="text" 
                       required
                       placeholder="Tu apellido"
-                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] font-bold outline-none transition-all placeholder:text-neutral-500`}
+                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] focus:ring-2 focus:ring-[#22c55e]/20 font-bold outline-none transition-all placeholder:text-neutral-500`}
                       value={formData.apellido}
                       onChange={(e) => setFormData({...formData, apellido: e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '')})}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic">Correo Electrónico</label>
+                    <label htmlFor="correo" className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-4 italic cursor-pointer">Correo Electrónico</label>
                     <input 
+                      id="correo"
                       type="email" 
                       required
                       placeholder="ejemplo@correo.com"
-                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] font-bold outline-none transition-all placeholder:text-neutral-500`}
+                      className={`w-full px-6 py-4 rounded-full ${isDark ? 'bg-neutral-800 focus:bg-neutral-700 text-white' : 'bg-neutral-50 focus:bg-white text-black'} border-2 border-transparent focus:border-[#22c55e] focus:ring-2 focus:ring-[#22c55e]/20 font-bold outline-none transition-all placeholder:text-neutral-500`}
                       value={formData.correo}
                       onChange={(e) => setFormData({...formData, correo: e.target.value})}
                     />
@@ -308,10 +326,12 @@ export default function App() {
           <div className="text-center mb-8 md:mb-14 relative">
             <h2 className={`text-6xl md:text-[10rem] font-black uppercase italic leading-none ${isDark ? 'text-white/5' : 'text-black/5'} absolute left-1/2 -translate-x-1/2 -top-6 md:-top-16 z-0 transition-colors`}>COMUNIDAD</h2>
             <h3 className={`relative z-10 text-4xl md:text-7xl font-black italic uppercase ${isDark ? 'text-white' : 'text-black'} mb-2 transition-colors`}>MÁS QUE UN <span className="text-[#22c55e]">BOX</span></h3>
-            <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-black uppercase tracking-[0.5em] text-[9px] md:text-xs italic transition-colors`}>{SLOGAN}</p>
+            <p className={`${isDark ? 'text-white/70' : 'text-black/70'} font-black uppercase tracking-[0.5em] text-[9px] md:text-xs italic transition-colors`}>{SLOGAN}</p>
           </div>
           
-          <ImageCarousel />
+          <Suspense fallback={<div className="w-full h-[400px] bg-neutral-900/10 animate-pulse rounded-3xl" />}>
+            <ImageCarousel />
+          </Suspense>
         </div>
       </section>
 
@@ -337,35 +357,36 @@ export default function App() {
                 }`}
               >
                 {plan.recommended && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#22c55e] text-black px-5 py-1 rounded-full font-black uppercase text-[9px] md:text-[10px] tracking-widest italic shadow-xl whitespace-nowrap">
-                    Recomendado
-                  </div>
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#22c55e] text-black px-5 py-1 rounded-full font-black uppercase text-[9px] md:text-[10px] tracking-widest italic shadow-xl whitespace-nowrap">
+                      Recomendado
+                    </div>
                 )}
                 <h3 className={`text-xl sm:text-2xl md:text-4xl font-black italic uppercase mb-2 ${isDark ? 'text-white' : 'text-black'}`}>{plan.name}</h3>
                 <div className="flex items-baseline gap-1 mb-6 md:mb-8">
                   <span className="text-3xl sm:text-4xl md:text-6xl font-black text-[#22c55e]">${plan.price}</span>
-                  <span className={`text-xs md:text-sm font-bold uppercase ${isDark ? 'text-white/40' : 'text-black/40'}`}>/ Mes</span>
+                  <span className={`text-xs md:text-sm font-bold uppercase ${isDark ? 'text-white/90' : 'text-black/90'}`}>/ Mes</span>
                 </div>
                 <ul className="space-y-3 md:space-y-4 mb-8 md:mb-12 flex-grow">
                   {plan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2 md:gap-3">
                       <Zap size={14} className="text-[#22c55e] shrink-0 mt-0.5" />
-                      <span className={`text-[11px] md:text-sm font-bold uppercase italic tracking-tight ${isDark ? 'text-white/60' : 'text-black/60'}`}>{feature}</span>
+                      <span className={`text-[11px] md:text-sm font-bold uppercase italic tracking-tight ${isDark ? 'text-white/90' : 'text-black/90'}`}>{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <a 
-                  href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${encodeURIComponent(`Hola! Quiero el plan ${plan.name}.`)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`w-full py-4 md:py-5 rounded-full font-black uppercase tracking-widest text-[11px] md:text-sm transition-all text-center block ${
-                    plan.recommended 
-                      ? 'bg-[#22c55e] text-black hover:bg-white hover:text-black shadow-lg shadow-[#22c55e]/20' 
-                      : (isDark ? 'bg-white text-black hover:bg-[#22c55e] hover:text-white' : 'bg-black text-[#22c55e] hover:bg-[#22c55e] hover:text-white')
-                  }`}
-                >
-                  Seleccionar
-                </a>
+                  <a 
+                    href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${encodeURIComponent(`Hola! Quiero el plan ${plan.name}.`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`w-full py-4 md:py-5 rounded-full font-black uppercase tracking-widest text-[11px] md:text-sm transition-all text-center block focus-visible:ring-4 outline-none ${
+                      plan.recommended 
+                        ? 'bg-[#22c55e] text-black hover:bg-white hover:text-black shadow-lg shadow-[#22c55e]/20 focus-visible:ring-[#22c55e]/40' 
+                        : (isDark ? 'bg-white text-black hover:bg-[#22c55e] hover:text-white focus-visible:ring-white/40' : 'bg-black text-white hover:bg-[#22c55e] hover:text-white focus-visible:ring-black/40')
+                    }`}
+                    aria-label={`Seleccionar plan de membresía ${plan.name}`}
+                  >
+                    Seleccionar
+                  </a>
               </motion.div>
             ))}
           </div>
@@ -382,7 +403,7 @@ export default function App() {
                 NUESTROS <span className="text-[#22c55e]">COACHES</span>
               </h2>
             </div>
-            <p className={`max-w-md italic font-bold text-sm md:text-lg ${isDark ? 'text-white/40' : 'text-black/40'} leading-tight`}>
+            <p className={`max-w-md italic font-bold text-sm md:text-lg ${isDark ? 'text-white/80' : 'text-black/80'} leading-tight`}>
               Expertos en transformar límites en hitos. No solo te entrenan, te guían hacia tu mejor versión.
             </p>
           </div>
@@ -400,16 +421,18 @@ export default function App() {
                 <div className="aspect-[4/5] relative overflow-hidden">
                   <ModernImage 
                     src={coach.image} 
-                    alt={coach.name} 
+                    alt={`Foto del coach ${coach.name}`} 
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                    width={400}
+                    height={500}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
                 </div>
                 <div className="p-5 md:p-8 relative">
                   <h3 className="text-xl md:text-2xl font-black italic uppercase text-[#22c55e] mb-1 leading-tight">{coach.name}</h3>
-                  <p className={`text-[9px] md:text-xs font-black uppercase tracking-widest italic mb-3 md:mb-4 ${isDark ? 'text-white/60' : 'text-black/60'}`}>{coach.role}</p>
+                  <p className={`text-[9px] md:text-xs font-black uppercase tracking-widest italic mb-3 md:mb-4 ${isDark ? 'text-white/90' : 'text-black/90'}`}>{coach.role}</p>
                   <div className={`p-3 md:p-4 rounded-xl ${isDark ? 'bg-black/40' : 'bg-neutral-100'} border-l-4 border-[#22c55e] italic`}>
-                    <p className={`text-[10px] md:text-xs font-bold ${isDark ? 'text-white/40' : 'text-black/40'}`}>"{coach.motto}"</p>
+                    <p className={`text-[10px] md:text-xs font-bold ${isDark ? 'text-white/70' : 'text-black/70'}`}>"{coach.motto}"</p>
                   </div>
                 </div>
               </motion.div>
@@ -429,18 +452,20 @@ export default function App() {
             </div>
             
             <div className="space-y-6">
-              <RotatingTestimonial 
-                items={TESTIMONIALS_1} 
-                isDark={isDark} 
-                name="Andrés G." 
-                role="Miembro hace 2 años" 
-              />
-              <RotatingTestimonial 
-                items={TESTIMONIALS_2} 
-                isDark={isDark} 
-                name="Camila V." 
-                role="Miembro hace 6 meses" 
-              />
+              <Suspense fallback={<div className="h-40 bg-neutral-900/10 animate-pulse rounded-3xl" />}>
+                <RotatingTestimonial 
+                  items={TESTIMONIALS_1} 
+                  isDark={isDark} 
+                  name="Andrés G." 
+                  role="Miembro hace 2 años" 
+                />
+                <RotatingTestimonial 
+                  items={TESTIMONIALS_2} 
+                  isDark={isDark} 
+                  name="Camila V." 
+                  role="Miembro hace 6 meses" 
+                />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -457,9 +482,11 @@ export default function App() {
           </div>
 
           <div className="flex flex-col">
-            {FAQS.map((faq, index) => (
-              <FAQItem key={index} q={faq.q} a={faq.a} isDark={isDark} />
-            ))}
+            <Suspense fallback={<div className="space-y-4 animate-pulse"><div className="h-16 bg-neutral-900/10 rounded-2xl" /><div className="h-16 bg-neutral-900/10 rounded-2xl" /></div>}>
+              {FAQS.map((faq, index) => (
+                <FAQItem key={index} q={faq.q} a={faq.a} isDark={isDark} />
+              ))}
+            </Suspense>
           </div>
         </div>
       </section>
@@ -481,8 +508,11 @@ export default function App() {
                 preload="none"
                 className="w-full h-full sm:h-auto block max-h-[70vh] object-cover sm:object-contain"
                 poster={HERO_IMAGE}
+                aria-label="Video guía: Cómo llegar a GreenBox Gym desde la avenida principal"
               >
                 <source src="/ComoLlegar.mp4" type="video/mp4" />
+                <track kind="captions" label="Español" src="" srcLang="es" />
+                <p>Tu navegador no soporta videos HTML5. Puedes encontrar nuestra ubicación en Google Maps.</p>
               </video>
             </div>
           </div>
@@ -531,7 +561,7 @@ export default function App() {
                  </h3>
                </div>
                
-               <p className={`font-bold uppercase text-[10px] md:text-xs tracking-[0.2em] mb-8 leading-relaxed ${isDark ? 'text-white/40' : 'text-black/40'}`}>
+               <p className={`font-bold uppercase text-[10px] md:text-xs tracking-[0.2em] mb-8 leading-relaxed ${isDark ? 'text-white/90' : 'text-black/90'}`}>
                  {ADDRESS_FULL}, <br/>
                  Naguanagua, Edo. Carabobo.
                </p>
@@ -556,11 +586,14 @@ export default function App() {
           <a href="https://instagram.com/brissport" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
             <ModernImage 
               src="/brissport.avif" 
-              alt="Brissport" 
+              alt="Logo del patrocinante Brissport" 
               className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" 
+              width={200}
+              height={48}
+              mobile={false}
             />
             <div className="text-center">
-              <p className={`text-[10px] font-black uppercase tracking-widest ${isDark ? 'text-white' : 'text-black'}`}>BRISSPORT</p>
+              <p className={`text-[10px] font-black uppercase tracking-widest ${isDark ? 'text-white' : 'text-black'}`}>PATROCINANTE OFICIAL</p>
             </div>
           </a>
         </div>
@@ -571,11 +604,17 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center mb-20">
             <div className="flex flex-col gap-4 text-center md:text-left">
-              <a href="#faqs" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Preguntas frecuentes</a>
-              <a href={`mailto:${EMAIL_CONTACT}`} className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Contacto</a>
+              <a href="#faqs" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/90' : 'text-black/90'}`}>Preguntas frecuentes</a>
+              <a href={`mailto:${EMAIL_CONTACT}`} className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/90' : 'text-black/90'}`} aria-label="Enviar un correo electrónico a GreenBox">Escríbenos</a>
             </div>
             <div className="flex justify-center gap-5">
-              <a href={`https://instagram.com/${INSTAGRAM_HANDLE}`} target="_blank" rel="noreferrer" className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border ${isDark ? 'bg-zinc-900 border-white/5 text-white' : 'bg-neutral-50 border-black/5 text-black'}`}>
+              <a 
+                href={`https://instagram.com/${INSTAGRAM_HANDLE}`} 
+                target="_blank" 
+                rel="noreferrer" 
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border ${isDark ? 'bg-zinc-900 border-white/5 text-white' : 'bg-neutral-50 border-black/5 text-black'}`}
+                aria-label="Síguenos en Instagram"
+              >
                 <Instagram size={20} />
               </a>
             </div>
@@ -584,19 +623,20 @@ export default function App() {
             </div>
           </div>
           <div className="pt-10 border-t border-white/5 text-center">
-            <p className={`text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] italic transition-colors ${isDark ? 'text-white/20' : 'text-black/20'}`}>
+            <p className={`text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] italic transition-colors ${isDark ? 'text-white/70' : 'text-black/70'}`}>
               © {new Date().getFullYear()} GREENBOX FITNESS CLUBS.
             </p>
           </div>
         </div>
-      </footer>
+      </main>
 
       {/* WhatsApp Button */}
       <a 
         href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${WHATSAPP_MESSAGE}`}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-[60] bg-[#22c55e] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group"
+        className="fixed bottom-6 right-6 z-[60] bg-[#22c55e] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group focus:ring-4 focus:ring-[#22c55e]/40 outline-none"
+        aria-label="Chatear con GreenBox por WhatsApp"
       >
         <MessageCircleMore size={28} />
       </a>
