@@ -174,7 +174,7 @@ export default function App() {
             width={800}
             height={800}
           />
-          <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent' : 'bg-gradient-to-t from-black/80 via-transparent to-transparent'} opacity-80 group-hover:opacity-100 transition-opacity duration-300`} />
+          <div className={`absolute inset-0 ${isDark ? 'bg-linear-to-t from-zinc-950 via-zinc-950/20 to-transparent' : 'bg-linear-to-t from-black/80 via-transparent to-transparent'} opacity-80 group-hover:opacity-100 transition-opacity duration-300`} />
           <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 max-w-[80%]">
             <h3 className="text-xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-2 drop-shadow-lg">{SLOGAN}</h3>
             <h3 className={`text-xl md:text-5xl font-black italic uppercase ${isDark ? 'text-white' : 'text-black'} tracking-tighter transition-colors drop-shadow-xl leading-[0.9]`}>CALIDAD • VALORES • RESULTADOS</h3>
@@ -415,9 +415,9 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -5 }}
-                className={`group relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border-2 ${isDark ? 'border-white/5 bg-zinc-900/50' : 'border-black/5 bg-white'} shadow-2xl transition-all duration-500`}
+                className={`group relative overflow-hidden rounded-3xl md:rounded-4xl border-2 ${isDark ? 'border-white/5 bg-zinc-900/50' : 'border-black/5 bg-white'} shadow-2xl transition-all duration-500`}
               >
-                <div className="aspect-[4/5] relative overflow-hidden">
+                <div className="aspect-4/5 relative overflow-hidden">
                   <ModernImage 
                     src={coach.image} 
                     alt={`Foto del coach ${coach.name}`} 
@@ -425,7 +425,7 @@ export default function App() {
                     width={400}
                     height={500}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60" />
                 </div>
                 <div className="p-5 md:p-8 relative">
                   <h3 className="text-xl md:text-2xl font-black italic uppercase text-[#22c55e] mb-1 leading-tight">{coach.name}</h3>
