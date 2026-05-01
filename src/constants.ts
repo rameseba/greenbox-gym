@@ -13,7 +13,7 @@ export const MISSION = "Salud física, fortaleza mental y comunidad.";
 
 export const HERO_IMAGE = "/4.webp";
 export const GRID_IMAGE = "/3.webp";
-export const LOGO_URL = "/logo.png";
+export const LOGO_URL = "/logo.webp";
 
 export const CAROUSEL_IMAGES = [
   "/1.webp",
