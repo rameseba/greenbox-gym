@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
 import { Menu, X, Instagram, MessageCircleMore, Sun, Moon } from 'lucide-react';
 import { LogoSVG } from './Logo';
 import { 
@@ -14,9 +14,9 @@ export const Navbar = ({ isDark, toggleTheme }: { isDark: boolean, toggleTheme: 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    return scrollY.on('change', (latest) => setIsScrolled(latest > 50));
-  }, [scrollY]);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${

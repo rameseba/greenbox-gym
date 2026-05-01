@@ -17,8 +17,8 @@ export const ScrambledText = ({ text }: { text: string }) => {
       );
 
       if (iteration >= text.length) clearInterval(interval);
-      iteration += 3;
-    }, 30);
+      iteration += 1;
+    }, 60);
     return () => clearInterval(interval);
   }, [text]);
 
