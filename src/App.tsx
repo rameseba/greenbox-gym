@@ -554,7 +554,7 @@ export default function App() {
       <div className={`py-8 border-t ${isDark ? 'bg-zinc-900/50 border-white/5' : 'bg-neutral-50 border-black/5'} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-40 hover:opacity-100 transition-all duration-700">
           <a href="https://instagram.com/brissport" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
-            <img src="/brissport.jpg" loading="lazy" alt="Brissport" className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" />
+            <img src="/brissport.webp" loading="lazy" alt="Brissport" className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" />
             <div className="text-center">
               <p className={`text-[10px] font-black uppercase tracking-widest ${isDark ? 'text-white' : 'text-black'}`}>BRISSPORT</p>
             </div>
