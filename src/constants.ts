@@ -104,19 +104,19 @@ export const COACHES = [
   {
     name: "ARI",
     role: '"LA JEFA"',
-    image: "/coaches/coach1.jpg",
+    image: "/coaches/coach1.webp",
     motto: "Determinación y liderazgo en cada entrenamiento."
   },
   {
     name: "Wilger",
     role: '"THE ROCK"',
-    image: "/coaches/coach2.jpg",
+    image: "/coaches/coach2.webp",
     motto: "Fuerza absoluta y técnica de acero."
   },
   {
     name: "Fiama Rodriguez",
     role: '"ROMA NO SE CONSTRUYÓ EN UN SOLO DÍA"',
-    image: "/coaches/coach3.jpg",
+    image: "/coaches/coach3.webp",
     motto: "Paso a paso, construyendo resultados reales."
   }
 ];
