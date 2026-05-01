@@ -20,6 +20,7 @@ import { RotatingTestimonial } from './components/RotatingTestimonial';
 import { FAQItem } from './components/FAQItem';
 import { ImageCarousel } from './components/ImageCarousel';
 import { Navbar } from './components/Navbar';
+import { ModernImage } from './components/ModernImage';
 
 // Constantes
 import { 
@@ -93,10 +94,12 @@ export default function App() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="w-full h-full"
           >
-            <img 
+            <ModernImage 
               src={HERO_IMAGE} 
               alt="Hero Background" 
               className="w-full h-full object-cover grayscale-[40%]"
+              fetchpriority="high"
+              loading="eager"
             />
           </motion.div>
         </div>
@@ -155,9 +158,8 @@ export default function App() {
           </p>
         </div>
         <div className="relative min-h-[400px] sm:min-h-[500px] lg:min-h-full overflow-hidden">
-          <img 
+          <ModernImage 
             src={GRID_IMAGE} 
-            loading="lazy"
             className={`absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000 grayscale ${isDark ? 'opacity-30' : 'opacity-60'} transition-opacity duration-500`}
             alt="Gym Box Training"
           />
@@ -216,9 +218,8 @@ export default function App() {
           <div className="max-w-4xl mx-auto relative group">
             <div className="absolute -inset-6 bg-[#22c55e] opacity-10 blur-3xl rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
             <div className={`relative border-2 md:border-[12px] ${isDark ? 'border-zinc-800' : 'border-black'} bg-black shadow-2xl overflow-hidden rounded-[1.5rem] md:rounded-[3rem]`}>
-               <img 
+               <ModernImage 
                  src={SCHEDULE_IMAGE_URL} 
-                 loading="lazy"
                  className="w-full h-auto block hover:scale-[1.03] transition-transform duration-1000 ease-out max-h-[85vh] object-contain"
                  alt="Horarios Oficiales GreenBox"
                />
@@ -397,10 +398,9 @@ export default function App() {
                 className={`group relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border-2 ${isDark ? 'border-white/5 bg-zinc-900/50' : 'border-black/5 bg-white'} shadow-2xl transition-all duration-500`}
               >
                 <div className="aspect-[4/5] relative overflow-hidden">
-                  <img 
+                  <ModernImage 
                     src={coach.image} 
                     alt={coach.name} 
-                    loading="lazy"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
@@ -554,7 +554,11 @@ export default function App() {
       <div className={`py-8 border-t ${isDark ? 'bg-zinc-900/50 border-white/5' : 'bg-neutral-50 border-black/5'} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-40 hover:opacity-100 transition-all duration-700">
           <a href="https://instagram.com/brissport" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
-            <img src="/brissport.webp" loading="lazy" alt="Brissport" className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" />
+            <ModernImage 
+              src="/brissport.webp" 
+              alt="Brissport" 
+              className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" 
+            />
             <div className="text-center">
               <p className={`text-[10px] font-black uppercase tracking-widest ${isDark ? 'text-white' : 'text-black'}`}>BRISSPORT</p>
             </div>

@@ -25,11 +25,10 @@ export const ImageCarousel = () => {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0 w-full h-full"
         >
-          <img 
+          <ModernImage 
             src={CAROUSEL_IMAGES[index]} 
             alt="Vida en el Box" 
             className="w-full h-full object-cover grayscale" 
-            loading="lazy" 
           />
         </motion.div>
       </AnimatePresence>
