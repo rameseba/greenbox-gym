@@ -99,9 +99,9 @@ export default function App() {
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 1, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <h1 className="text-[clamp(2.5rem,10vw,8rem)] font-black leading-[0.9] tracking-tighter mb-8 italic uppercase text-white shadow-text px-2 min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-[0.3em]">
               <ScrambledText text={HERO_PHRASES[heroIndex].split(' ')[0]} />
