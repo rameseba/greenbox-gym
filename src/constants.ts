@@ -11,14 +11,14 @@ export const MAP_LINK = 'https://maps.app.goo.gl/UovqNDRJdZoLLYax9';
 export const SLOGAN = "Tu box verde 💚";
 export const MISSION = "Salud física, fortaleza mental y comunidad.";
 
-export const HERO_IMAGE = "/4.webp";
-export const GRID_IMAGE = "/3.webp";
-export const LOGO_URL = "/logo.webp";
+export const HERO_IMAGE = "/4.avif";
+export const GRID_IMAGE = "/3.avif";
+export const LOGO_URL = "/logo.avif";
 
 export const CAROUSEL_IMAGES = [
-  "/1.webp",
-  "/2.webp",
-  "/5.webp"
+  "/1.avif",
+  "/2.avif",
+  "/5.avif"
 ];
 
 export const MAP_PREVIEW = "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1600&auto=format&fit=crop";
@@ -42,7 +42,7 @@ export const FAQS = [
   }
 ];
 
-export const SCHEDULE_IMAGE_URL = "/horario.webp";
+export const SCHEDULE_IMAGE_URL = "/horario.avif";
 
 export const TERMINAL_BENEFITS = [
   "Quema de grasa acelerada",

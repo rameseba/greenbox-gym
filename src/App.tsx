@@ -555,7 +555,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-40 hover:opacity-100 transition-all duration-700">
           <a href="https://instagram.com/brissport" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
             <ModernImage 
-              src="/brissport.webp" 
+              src="/brissport.avif" 
               alt="Brissport" 
               className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" 
             />
