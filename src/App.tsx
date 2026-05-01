@@ -153,7 +153,6 @@ export default function App() {
               {SLOGAN}
             </p>
           </motion.div>
-        </div>
       </section>
 
       {/* Grid Content */}
@@ -598,6 +597,7 @@ export default function App() {
           </a>
         </div>
       </div>
+      </main>
 
       {/* Footer */}
       <footer className={`py-16 md:py-24 border-t transition-colors duration-500 ${isDark ? 'bg-black border-white/5' : 'bg-white border-neutral-200'}`}>
@@ -628,7 +628,7 @@ export default function App() {
             </p>
           </div>
         </div>
-      </main>
+      </footer>
 
       {/* WhatsApp Button */}
       <a 
