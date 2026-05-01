@@ -15,7 +15,7 @@ export const ImageCarousel = () => {
   }, []);
 
   return (
-    <div className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-none shadow-2xl border-y-4 md:border-4 border-black group">
+    <div className="relative w-full aspect-video md:aspect-21/9 overflow-hidden rounded-none shadow-2xl border-y-4 md:border-4 border-black group">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
@@ -34,7 +34,7 @@ export const ImageCarousel = () => {
           />
         </motion.div>
       </AnimatePresence>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
+      <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent z-10" />
       <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 z-20">
         <p className="text-[#1a8d3c] font-black italic uppercase text-[10px] md:text-sm tracking-widest mb-2">Instalaciones Premium</p>
         <p className="text-2xl md:text-6xl font-black italic uppercase text-white tracking-tighter shadow-text">VIDA EN EL BOX</p>

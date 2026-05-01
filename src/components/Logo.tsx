@@ -3,7 +3,7 @@ import { ModernImage } from './ModernImage';
 
 export const LogoSVG = ({ className = '', withText = true, isDark = true }: { className?: string, withText?: boolean, isDark?: boolean }) => (
   <div className={`flex items-center gap-2 md:gap-4 ${className}`}>
-    <div className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-16 md:h-16 shrink-0 rounded-full p-1 shadow-lg border-[2px] md:border-[3px] border-[#22c55e] overflow-hidden flex items-center justify-center transition-all duration-500 ${isDark ? 'bg-white' : 'bg-black'}`}>
+    <div className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-16 md:h-16 shrink-0 rounded-full p-1 shadow-lg border-2 md:border-3 border-[#22c55e] overflow-hidden flex items-center justify-center transition-all duration-500 ${isDark ? 'bg-white' : 'bg-black'}`}>
       <ModernImage 
         src={LOGO_URL} 
         alt="GreenBox Logo" 

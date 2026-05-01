@@ -87,7 +87,7 @@ export default function App() {
       {/* Skip to Content Link */}
       <a 
         href="#main-content" 
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] bg-[#22c55e] text-black px-6 py-3 rounded-full font-black uppercase text-sm shadow-2xl"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 bg-[#22c55e] text-black px-6 py-3 rounded-full font-black uppercase text-sm shadow-2xl"
       >
         Saltar al contenido
       </a>
@@ -104,7 +104,7 @@ export default function App() {
             <ModernImage 
               src={HERO_IMAGE} 
               alt="Hero Background" 
-              className="w-full h-full object-cover grayscale-[40%]"
+              className="w-full h-full object-cover grayscale-40"
               fetchpriority="high"
               loading="eager"
               width={1200}
@@ -126,7 +126,7 @@ export default function App() {
                 </span>
               )}
             </h1>
-            <p className="text-xs sm:text-lg md:text-2xl text-white font-black uppercase tracking-[0.1em] md:tracking-widest mb-12 max-w-3xl mx-auto italic px-4 leading-relaxed">
+            <p className="text-xs sm:text-lg md:text-2xl text-white font-black uppercase tracking-widest mb-12 max-w-3xl mx-auto italic px-4 leading-relaxed">
               Box Funcional Premium • {LOCATION_VALENCIA}
             </p>
             <div className="flex flex-col sm:flex-row gap-5 md:gap-8 justify-center items-center px-4">
@@ -174,7 +174,7 @@ export default function App() {
             width={800}
             height={800}
           />
-          <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent' : 'bg-gradient-to-t from-white via-transparent to-transparent opacity-40'} transition-all`} />
+          <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent' : 'bg-gradient-to-t from-black/80 via-transparent to-transparent'} opacity-80 group-hover:opacity-100 transition-opacity duration-300`} />
           <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 max-w-[80%]">
             <h3 className="text-xl md:text-4xl font-black italic uppercase text-[#22c55e] mb-2 drop-shadow-lg">{SLOGAN}</h3>
             <h3 className={`text-xl md:text-5xl font-black italic uppercase ${isDark ? 'text-white' : 'text-black'} tracking-tighter transition-colors drop-shadow-xl leading-[0.9]`}>CALIDAD • VALORES • RESULTADOS</h3>
@@ -228,7 +228,7 @@ export default function App() {
 
           <div className="max-w-4xl mx-auto relative group">
             <div className="absolute -inset-6 bg-[#22c55e] opacity-10 blur-3xl rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
-            <div className={`relative border-2 md:border-[12px] ${isDark ? 'border-zinc-800' : 'border-black'} bg-black shadow-2xl overflow-hidden rounded-[1.5rem] md:rounded-[3rem]`}>
+            <div className={`relative border-2 md:border-12 ${isDark ? 'border-zinc-800' : 'border-black'} bg-black shadow-2xl overflow-hidden rounded-3xl md:rounded-[3rem]`}>
                  <ModernImage 
                    src={SCHEDULE_IMAGE_URL} 
                    className="w-full h-auto block hover:scale-[1.03] transition-transform duration-1000 ease-out max-h-[85vh] object-contain"
@@ -240,7 +240,7 @@ export default function App() {
           </div>
           
           <div className="mt-12 md:mt-16 max-w-2xl mx-auto">
-            <div className={`${isDark ? 'bg-zinc-900 shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-white/5' : 'bg-white shadow-[0_20px_60px_rgba(34,197,94,0.1)] border-neutral-100'} rounded-[2rem] p-8 md:p-14 border transition-all duration-700 relative overflow-hidden`}>
+            <div className={`${isDark ? 'bg-zinc-900 shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-white/5' : 'bg-white shadow-[0_20px_60px_rgba(34,197,94,0.1)] border-neutral-100'} rounded-4xl p-8 md:p-14 border transition-all duration-700 relative overflow-hidden`}>
               <div className="absolute -top-10 -right-10 opacity-[0.05] pointer-events-none">
                 <LogoSVG isDark={isDark} withText={false} className="scale-[3] rotate-12" />
               </div>
@@ -349,7 +349,7 @@ export default function App() {
               <motion.div
                 key={i}
                 whileHover={{ y: -10 }}
-                className={`relative p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border-2 transition-all duration-500 flex flex-col ${
+                className={`relative p-6 sm:p-8 md:p-12 rounded-4xl md:rounded-[2.5rem] border-2 transition-all duration-500 flex flex-col ${
                   plan.recommended 
                     ? 'border-[#22c55e] bg-[#22c55e]/5 shadow-[0_30px_100px_rgba(34,197,94,0.1)] lg:scale-105 z-10' 
                     : (isDark ? 'border-white/5 bg-zinc-900/50' : 'border-black/5 bg-neutral-50')
@@ -365,7 +365,7 @@ export default function App() {
                   <span className="text-3xl sm:text-4xl md:text-6xl font-black text-[#22c55e]">${plan.price}</span>
                   <span className={`text-xs md:text-sm font-bold uppercase ${isDark ? 'text-white/90' : 'text-black/90'}`}>/ Mes</span>
                 </div>
-                <ul className="space-y-3 md:space-y-4 mb-8 md:mb-12 flex-grow">
+                <ul className="space-y-3 md:space-y-4 mb-8 md:mb-12 grow">
                   {plan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2 md:gap-3">
                       <Zap size={14} className="text-[#22c55e] shrink-0 mt-0.5" />
@@ -500,8 +500,8 @@ export default function App() {
           </div>
 
           <div className="max-w-5xl mx-auto relative group">
-            <div className="absolute -inset-4 bg-[#22c55e] opacity-10 blur-3xl rounded-[2rem] md:rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
-            <div className={`relative border-4 md:border-[12px] ${isDark ? 'border-zinc-900 bg-black' : 'border-black bg-neutral-100'} shadow-2xl overflow-hidden rounded-[2rem] md:rounded-[3rem] aspect-video sm:aspect-auto`}>
+            <div className="absolute -inset-4 bg-[#22c55e] opacity-10 blur-3xl rounded-4xl md:rounded-[4rem] group-hover:opacity-20 transition-opacity duration-700" />
+            <div className={`relative border-4 md:border-12 ${isDark ? 'border-zinc-900 bg-black' : 'border-black bg-neutral-100'} shadow-2xl overflow-hidden rounded-4xl md:rounded-[3rem] aspect-video sm:aspect-auto`}>
               <video 
                 controls 
                 preload="none"
@@ -635,7 +635,7 @@ export default function App() {
         href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${WHATSAPP_MESSAGE}`}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-[60] bg-[#22c55e] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group focus:ring-4 focus:ring-[#22c55e]/40 outline-none"
+        className="fixed bottom-6 right-6 z-60 bg-[#22c55e] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group focus:ring-4 focus:ring-[#22c55e]/40 outline-none"
         aria-label="Chatear con GreenBox por WhatsApp"
       >
         <MessageCircleMore size={28} />
