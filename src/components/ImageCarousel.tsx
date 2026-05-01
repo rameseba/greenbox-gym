@@ -21,20 +21,16 @@ export const ImageCarousel = () => {
   return (
     <div className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-none shadow-2xl border-y-4 md:border-4 border-black group">
       <AnimatePresence mode="wait">
-        <motion.div
+        <motion.img
           key={index}
+          src={CAROUSEL_IMAGES[index]}
+          loading="lazy"
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 0.6, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0 w-full h-full"
-        >
-          <ModernImage 
-            src={CAROUSEL_IMAGES[index]} 
-            alt="Vida en el Box" 
-            className="w-full h-full object-cover grayscale"
-          />
-        </motion.div>
+          className="absolute inset-0 w-full h-full object-cover grayscale"
+        />
       </AnimatePresence>
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
       <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 z-20">
