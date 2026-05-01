@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ModernImage } from './ModernImage';
 
-const CAROUSEL_IMAGES = [
-  "/1.jpg",
-  "/2.jpg",
-  "/5.jpg"
-];
+import { CAROUSEL_IMAGES } from '../constants';
 
 export const ImageCarousel = () => {
   const [index, setIndex] = useState(0);
