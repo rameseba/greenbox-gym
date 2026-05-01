@@ -1,463 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Instagram, 
   MessageCircleMore, 
-  Menu,
-  X,
-  MapPin,
-  Mail,
-  ArrowRight,
-  ChevronDown,
-  TrendingUp,
-  Zap,
-  Users,
-  ExternalLink,
-  ChevronLeft,
-  ChevronRight,
-  Moon,
-  Sun
+  MapPin, 
+  Mail, 
+  ArrowRight, 
+  TrendingUp, 
+  Zap, 
+  Users, 
+  ExternalLink 
 } from 'lucide-react';
 
-// --- Constantes ---
-const PRIMARY_GREEN = '#22c55e'; // Verde más vibrante y representativo del logo
-const WHATSAPP_NUMBER = '+584122753272'; 
-const WHATSAPP_MESSAGE = encodeURIComponent('Hi! GreenBox VE - Quiero informacion sobre la Prueba Gratis de 2 dias que vi en su pagina Web, me interesa!');
-const INSTAGRAM_HANDLE = 'greenbox_ve';
-const EMAIL_CONTACT = 'greenboxvenezuela@gmail.com';
-const LOCATION_VALENCIA = 'Naguanagua, Valencia';
-const ADDRESS_FULL = 'Av. Bernardino López c/ calle Salom, Naguanagua';
-const MAP_LINK = 'https://maps.app.goo.gl/UovqNDRJdZoLLYax9';
-const SLOGAN = "Tu box verde 💚";
-const MISSION = "Salud física, fortaleza mental y comunidad.";
+// Componentes
+import { LogoSVG } from './components/Logo';
+import { ScrambledText } from './components/ScrambledText';
+import { TerminalStatus } from './components/TerminalStatus';
+import { RotatingTestimonial } from './components/RotatingTestimonial';
+import { FAQItem } from './components/FAQItem';
+import { ImageCarousel } from './components/ImageCarousel';
+import { Navbar } from './components/Navbar';
 
-// Recursos Visuales
-const HERO_IMAGE = "/4.jpg";
-const GRID_IMAGE = "/3.jpg";
-const LOGO_URL = "https://i.ibb.co/PvkdX4JJ/1777485361988-edit-27623999535971.png";
-
-const CAROUSEL_IMAGES = [
-  "/1.jpg",
-  "/2.jpg",
-  "/5.jpg"
-];
-
-const MAP_PREVIEW = "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1600&auto=format&fit=crop";
-
-const FAQS = [
-  {
-    q: "¿Qué es GreenBox VE?",
-    a: "Somos un Centro de CrossFit especializado en Valencia donde no importa tu edad ni tu experiencia. El camino empieza aquí \"En tú Box verde 💚\""
-  },
-  {
-    q: "¿Cómo son Nuestras Clases?",
-    a: "Nuestras clases están diseñadas para todas las edades y niveles de condición física. No importa si eres principiante o un atleta experimentado, aquí encontrarás un espacio funcional y motivador donde cada uno puede desafiarse a sí mismo 💚."
-  },
-  {
-    q: "¿Dan días de Prueba?",
-    a: "¡Sí! Te regalamos Dos días de prueba para que puedas disfrutarlos Completamente Gratis."
-  },
-  {
-    q: "¿Hay competencias en GreenBox?",
-    a: "¡Sí! Hacemos competencias donde tenemos Sponsors de Alimentación saludable (Yogurt, Barras de Proteína, Empanadas, Implementos deportivos, Ropa deportiva, Pizzas y más!). No es solo una competencia, es para agradecer esta maravillosa familia Green Box. Juntos, seguimos creciendo y creando momentos inolvidables. 💚"
-  }
-];
-
-// Imagen de horarios
-const SCHEDULE_IMAGE_URL = "https://i.ibb.co/zVppVcgv/horarios.png";
-
-const TERMINAL_BENEFITS = [
-  "Quema de grasa acelerada",
-  "Mejora la resistencia cardiovascular",
-  "Aumento de fuerza funcional",
-  "Mayor flexibilidad y movilidad",
-  "Comunidad motivadora",
-  "Mejora la coordinación y equilibrio",
-  "Resultados visibles en poco tiempo",
-  "Adaptable a cualquier nivel",
-  "Reduce el estrés y la ansiedad",
-  "Diversidad constante de ejercicios"
-];
-
-const HERO_PHRASES = [
-  "SÉ FUERTE", "SIN LÍMITES", "TU BOX VERDE", "EVOLUCIONA", "DISCIPLINA", 
-  "RESULTADOS", "COMUNIDAD", "PERSISTENCIA", "MÁS FUERTE", "SUPÉRATE", 
-  "EL MOMENTO ES HOY", "FUERZA PURA", "PASIÓN BOX", "ACTITUD GREEN", "TRANSFORMACIÓN", 
-  "MENTE DE ACERO", "DOMINA EL WOD", "ESTILO DE VIDA", "POTENCIA TOTAL", "GREEN BOX VE"
-];
-
-const BENEFITS = [
-  {
-    icon: <TrendingUp className="w-6 h-6" />,
-    title: "Resultados Reales",
-    desc: "Programas diseñados para maximizar tu progreso basándonos en técnica pura."
-  },
-  {
-    icon: <Users className="w-6 h-6" />,
-    title: "Comunidad Box",
-    desc: "Un ambiente de motivación donde cada repetición cuenta."
-  },
-  {
-    icon: <Zap className="w-6 h-6" />,
-    title: "Eco-Friendly",
-    desc: "Tu box verde, comprometidos con tu salud y el entorno."
-  }
-];
-
-const PLANS = [
-  {
-    name: "Green Base",
-    price: "35",
-    features: ["Acceso horario AM", "Entrenador de piso", "App de seguimiento", "Wifi & Hidratación"],
-    recommended: false
-  },
-  {
-    name: "Box Pro",
-    price: "55",
-    features: ["Acceso ilimitado", "Todas las clases grupales", "1 Clase especial/mes", "Evaluación física mensual"],
-    recommended: true
-  },
-  {
-    name: "Elite VIP",
-    price: "85",
-    features: ["Acceso 24/7", "Entrenador personal 1h/sem", "Plan nutricional", "Toallas & Café ilimitado"],
-    recommended: false
-  }
-];
-
-const COACHES = [
-  {
-    name: "ARI",
-    role: '"LA JEFA"',
-    image: "/coaches/coach1.jpg",
-    motto: "Determinación y liderazgo en cada entrenamiento."
-  },
-  {
-    name: "Wilger",
-    role: '"THE ROCK"',
-    image: "/coaches/coach2.jpg",
-    motto: "Fuerza absoluta y técnica de acero."
-  },
-  {
-    name: "Fiama Rodriguez",
-    role: '"ROMA NO SE CONSTRUYÓ EN UN SOLO DÍA"',
-    image: "/coaches/coach3.jpg",
-    motto: "Paso a paso, construyendo resultados reales."
-  }
-];
-
-const TESTIMONIALS_1 = [
-  "GreenBox cambió mi forma de ver el ejercicio.",
-  "No es solo sudar, es aprender a moverte bien.",
-  "La comunidad aquí es lo mejor, te motivan siempre.",
-  "Los coaches son expertos y muy dedicados.",
-  "Nunca pensé que el CrossFit fuera para mí.",
-  "El ambiente es increíble, 100% recomendado.",
-  "Resultados reales desde el primer mes.",
-  "Es mi lugar feliz después de un día largo.",
-  "La técnica es lo más importante aquí.",
-  "Mucha disciplina y buena energía siempre."
-];
-
-const TESTIMONIALS_2 = [
-  "He ganado mucha fuerza y confianza.",
-  "El box verde es mi segunda casa.",
-  "Instalaciones de primera y coaches top.",
-  "Cada WOD es un nuevo desafío superado.",
-  "Aprendí que los límites están en la mente.",
-  "Gracias GreenBox por ayudarme a mejorar.",
-  "Entrenar aquí es otro nivel de experiencia.",
-  "La mejor decisión que tomé para mi salud.",
-  "Valencia necesitaba un box como este.",
-  "Comunidad, fuerza y salud integral."
-];
-
-// --- Sub-componentes ---
-
-const LogoSVG = ({ className = "", withText = true, isDark = true }: { className?: string, withText?: boolean, isDark?: boolean }) => (
-  <div className={`flex items-center gap-2 md:gap-4 ${className}`}>
-    <div className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-16 md:h-16 shrink-0 rounded-full p-1 shadow-lg border-[2px] md:border-[3px] border-[#22c55e] overflow-hidden flex items-center justify-center transition-all duration-500 ${isDark ? 'bg-white' : 'bg-black'}`}>
-      <img 
-        src={LOGO_URL} 
-        alt="GreenBox Logo" 
-        className="w-full h-full object-cover scale-110"
-      />
-    </div>
-    {withText && (
-      <div className="flex flex-col">
-        <h2 className={`text-xl sm:text-2xl md:text-3xl font-black italic tracking-tighter leading-none transition-colors duration-500 ${isDark ? 'text-white' : 'text-black'}`}>
-          GREEN<span className="text-[#22c55e]">BOX</span>
-        </h2>
-        <span className={`text-[8px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] mt-0.5 italic transition-colors duration-500 ${isDark ? 'text-[#22c55e]' : 'text-neutral-500'}`}>
-          CROSSFIT • FUNCIONAL • COMUNIDAD
-        </span>
-      </div>
-    )}
-  </div>
-);
-
-const ScrambledText = ({ text }: { text: string }) => {
-  const [displayText, setDisplayText] = useState(text);
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-  useEffect(() => {
-    let iteration = 0;
-    const interval = setInterval(() => {
-      setDisplayText(text.split("")
-        .map((char, index) => {
-          if (index < iteration) return text[index];
-          if (char === " ") return " ";
-          return chars[Math.floor(Math.random() * 26)];
-        })
-        .join("")
-      );
-
-      if (iteration >= text.length) clearInterval(interval);
-      iteration += 3; // Much faster for long testimonials
-    }, 30);
-    return () => clearInterval(interval);
-  }, [text]);
-
-  return <>{displayText}</>;
-};
-
-const TerminalStatus = ({ isDark }: { isDark: boolean }) => {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % TERMINAL_BENEFITS.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div className={`relative z-10 border-4 ${isDark ? 'border-white/5 bg-neutral-900/80' : 'border-black/5 bg-white/80'} p-10 rounded-3xl backdrop-blur-md transition-colors duration-500 min-h-[200px] flex flex-col justify-center`}>
-      <div className="flex items-center gap-4 mb-6">
-        <div className="w-3 h-3 rounded-full bg-[#22c55e]" />
-        <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
-        <div className={`w-3 h-3 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
-      </div>
-      <div className={`${isDark ? 'text-white/40' : 'text-black/40'} font-mono text-[10px] md:text-[11px] uppercase tracking-widest leading-loose`}>
-        <p className="mb-1">// ¿Conoces los beneficios de hacer CrossFit?</p>
-        <p className={`text-[#22c55e] font-black mb-1`}>
-          // <ScrambledText text={TERMINAL_BENEFITS[index].toUpperCase()} />
-        </p>
-        <p>// Tu box verde 💚</p>
-      </div>
-    </div>
-  );
-};
-
-const RotatingTestimonial = ({ items, isDark, name, role }: { items: string[], isDark: boolean, name: string, role: string }) => {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % items.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, [items.length]);
-
-  return (
-    <div className={`p-8 md:p-10 rounded-[2rem] border-2 ${isDark ? 'border-white/5 bg-zinc-900/30' : 'border-black/5 bg-neutral-50'} relative min-h-[220px] md:min-h-[280px] flex flex-col justify-between transition-all duration-500`}>
-      <p className={`text-lg md:text-2xl font-bold italic mb-6 leading-relaxed ${isDark ? 'text-white/80' : 'text-black/80'}`}>
-        "<ScrambledText text={items[index]} />"
-      </p>
-      <div>
-        <p className="text-[#22c55e] font-black uppercase tracking-widest italic">{name}</p>
-        <p className={`text-xs uppercase font-bold tracking-tight ${isDark ? 'text-white/20' : 'text-black/20'}`}>{role}</p>
-      </div>
-    </div>
-  );
-};
-
-const FAQItem = ({ q, a, isDark }: { q: string, a: string, isDark: boolean }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className={`mb-3 overflow-hidden rounded-2xl border transition-all duration-300 ${
-      isOpen 
-        ? (isDark ? 'bg-neutral-900/50 border-[#22c55e]/30 shadow-lg' : 'bg-white border-[#22c55e]/30 shadow-md')
-        : (isDark ? 'bg-neutral-900/20 border-white/5 hover:border-white/10' : 'bg-neutral-50/50 border-neutral-100 hover:border-neutral-200')
-    }`}>
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-5 text-left flex justify-between items-center gap-4 group"
-      >
-        <span className={`text-sm md:text-base font-black uppercase tracking-tight transition-colors ${
-          isOpen ? 'text-[#22c55e]' : (isDark ? 'text-white/80' : 'text-black/80')
-        }`}>
-          {q}
-        </span>
-        <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
-          isOpen ? 'bg-[#22c55e] rotate-180' : 'bg-neutral-800/10'
-        }`}>
-          <ChevronDown size={14} className={isOpen ? 'text-black' : (isDark ? 'text-white/40' : 'text-black/40')} />
-        </div>
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-          >
-            <div className={`px-6 pb-6 text-xs md:text-sm font-medium italic leading-relaxed ${
-              isDark ? 'text-white/40' : 'text-neutral-500'
-            }`}>
-              {a}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
-const ImageCarousel = () => {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % CAROUSEL_IMAGES.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-none shadow-2xl border-y-4 md:border-4 border-black group">
-      <AnimatePresence mode="wait">
-        <motion.img
-          key={index}
-          src={CAROUSEL_IMAGES[index]}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.6, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0 w-full h-full object-cover grayscale"
-        />
-      </AnimatePresence>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
-      <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 z-20">
-        <p className="text-[#1a8d3c] font-black italic uppercase text-[10px] md:text-sm tracking-widest mb-2">Instalaciones Premium</p>
-        <p className="text-2xl md:text-6xl font-black italic uppercase text-white tracking-tighter shadow-text">VIDA EN EL BOX</p>
-      </div>
-    </div>
-  );
-};
-
-const Navbar = ({ isDark, toggleTheme }: { isDark: boolean, toggleTheme: () => void }) => {
-  const { scrollY } = useScroll();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    return scrollY.on('change', (latest) => setIsScrolled(latest > 50));
-  }, [scrollY]);
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled 
-        ? (isDark ? 'bg-zinc-950/90 border-b border-white/5 backdrop-blur-md shadow-2xl' : 'bg-white/95 border-b border-neutral-200 shadow-xl') 
-        : 'bg-transparent'
-    } ${isScrolled ? 'py-2' : 'py-4 md:py-5'}`}>
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
-        <LogoSVG 
-          isDark={isScrolled ? isDark : true} 
-          withText={true} 
-          className={`transition-all duration-500 ${isScrolled ? 'scale-[0.55] sm:scale-[0.6] origin-left' : 'scale-[0.8] sm:scale-90 origin-left'}`} 
-        />
-
-        <div className="hidden lg:flex items-center gap-8">
-          {['Inicio', 'Horarios', 'Nosotros', 'Contacto'].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`}
-              className={`text-xs font-black uppercase tracking-widest transition-all duration-300 ${
-                isScrolled 
-                  ? (isDark ? 'text-white/40 hover:text-[#22c55e]' : 'text-black/40 hover:text-[#22c55e]') 
-                  : 'text-white/70 hover:text-white'
-              }`}
-            >
-              {item}
-            </a>
-          ))}
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={toggleTheme}
-              className={`p-2 rounded-full transition-all duration-300 ${isScrolled ? (isDark ? 'text-white hover:bg-white/10' : 'text-black hover:bg-black/5') : 'text-white hover:bg-white/10'}`}
-              title={isDark ? "Modo Claro" : "Modo Oscuro"}
-            >
-              {isDark ? <Sun size={20} className="text-[#22c55e]" /> : <Moon size={20} />}
-            </button>
-            <a 
-              href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${WHATSAPP_MESSAGE}`}
-              target="_blank"
-              rel="noreferrer"
-              className={`bg-[#22c55e] text-black px-6 py-2.5 rounded-full font-black uppercase text-sm hover:scale-105 transition-all tracking-wider shadow-lg shadow-[#22c55e]/20`}
-            >
-              Únete
-            </a>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 lg:hidden">
-          <button 
-            onClick={toggleTheme}
-            className={`p-2 rounded-full transition-all duration-500 ${isScrolled && !isDark ? 'text-black bg-neutral-200 border-black/5' : 'text-white bg-white/5 border-white/10'} border`}
-          >
-            {isDark ? <Sun size={20} className="text-[#22c55e]" /> : <Moon size={20} />}
-          </button>
-          <button 
-            className={`p-3 rounded-full border transition-all duration-500 ${isScrolled && !isDark ? 'text-black bg-neutral-200 border-black/5' : 'text-white bg-white/5 border-white/10'}`} 
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 bg-black z-[100] flex flex-col p-8 md:p-12 overflow-y-auto"
-          >
-            <div className="flex justify-between items-center mb-16">
-              <LogoSVG />
-              <button onClick={() => setMobileMenuOpen(false)} className="text-white">
-                <X size={32} />
-              </button>
-            </div>
-            <div className="flex flex-col gap-6">
-              {['Inicio', 'Horarios', 'Nosotros', 'Contacto'].map((item) => (
-                <a 
-                  key={item} 
-                  href={`#${item.toLowerCase()}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-4xl sm:text-6xl font-black text-white uppercase italic hover:text-[#1a8d3c] tracking-tighter"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-            <div className="mt-auto pt-20 flex flex-col gap-8">
-               <div className="flex gap-8">
-                 <a href={`https://instagram.com/${INSTAGRAM_HANDLE}`} target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors"><Instagram size={36} /></a>
-                 <a href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${WHATSAPP_MESSAGE}`} target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors"><MessageCircleMore size={36} /></a>
-               </div>
-               <p className="text-[#1a8d3c] font-black italic uppercase tracking-[0.3em] text-sm">{SLOGAN}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
-};
+// Constantes
+import { 
+  WHATSAPP_NUMBER, 
+  WHATSAPP_MESSAGE, 
+  INSTAGRAM_HANDLE, 
+  EMAIL_CONTACT, 
+  LOCATION_VALENCIA, 
+  ADDRESS_FULL, 
+  MAP_LINK, 
+  SLOGAN, 
+  HERO_IMAGE, 
+  GRID_IMAGE, 
+  FAQS, 
+  SCHEDULE_IMAGE_URL, 
+  HERO_PHRASES, 
+  BENEFITS, 
+  PLANS, 
+  COACHES, 
+  TESTIMONIALS_1, 
+  TESTIMONIALS_2 
+} from './constants';
 
 export default function App() {
   const [isDark, setIsDark] = useState(true);
@@ -565,15 +149,11 @@ export default function App() {
           <p className="text-black/80 text-sm sm:text-lg md:text-xl font-bold italic mb-10 max-w-lg uppercase tracking-tight relative z-10 leading-tight">
             Valencia tiene un nuevo estándar. Entrenamiento funcional intenso para los que no se conforman con lo básico.
           </p>
-          <div className="hidden lg:block relative z-10">
-            <p className="text-black font-black uppercase tracking-[0.2em] text-[10px] italic opacity-40">
-              Desliza para explorar la experiencia GreenBox
-            </p>
-          </div>
         </div>
         <div className="relative min-h-[400px] sm:min-h-[500px] lg:min-h-full overflow-hidden">
           <img 
             src={GRID_IMAGE} 
+            loading="lazy"
             className={`absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-1000 grayscale ${isDark ? 'opacity-30' : 'opacity-60'} transition-opacity duration-500`}
             alt="Gym Box Training"
           />
@@ -585,7 +165,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Benefits Interactive Carousel */}
+      {/* Benefits Section */}
       <section className={`py-12 md:py-32 ${isDark ? 'bg-zinc-900/30' : 'bg-neutral-50'} border-y ${isDark ? 'border-white/5' : 'border-black/5'} overflow-hidden transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 md:mb-20 gap-8">
@@ -595,49 +175,26 @@ export default function App() {
                 VENTAJA <span className="text-[#22c55e]">GREENBOX</span>
               </h2>
             </div>
-            <div className="flex gap-4 self-end md:self-auto">
-              <button 
-                onClick={() => setBenefitIndex(prev => (prev - 1 + BENEFITS.length) % BENEFITS.length)}
-                className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-2 ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'} flex items-center justify-center hover:bg-[#22c55e] hover:border-[#22c55e] hover:text-black transition-all shadow-lg active:scale-90`}
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button 
-                onClick={() => setBenefitIndex(prev => (prev + 1) % BENEFITS.length)}
-                className={`w-12 h-12 md:w-16 md:h-16 rounded-full border-2 ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'} flex items-center justify-center hover:bg-[#22c55e] hover:border-[#22c55e] hover:text-black transition-all shadow-lg active:scale-90`}
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
           </div>
 
-          <div className="relative min-h-[300px] md:min-h-[350px] flex items-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={benefitIndex}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="w-full grid md:grid-cols-2 gap-8 md:gap-16 items-center"
-              >
-                <div className="flex flex-col items-start text-left">
-                  <div className="w-14 h-14 md:w-20 md:h-20 bg-[#22c55e] rounded-2xl flex items-center justify-center text-black mb-6 md:mb-8 shadow-xl">
-                    {React.cloneElement(BENEFITS[benefitIndex].icon as React.ReactElement, { size: 28 })}
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="space-y-8">
+              {BENEFITS.map((benefit, i) => (
+                <div key={i} className="flex gap-6 items-start">
+                  <div className="w-12 h-12 bg-[#22c55e] rounded-xl flex items-center justify-center text-black shrink-0 shadow-lg">
+                    {i === 0 ? <TrendingUp size={24} /> : i === 1 ? <Users size={24} /> : <Zap size={24} />}
                   </div>
-                  <h3 className={`text-2xl md:text-5xl font-black italic uppercase mb-4 md:mb-6 tracking-tighter transition-colors ${isDark ? 'text-white' : 'text-black'}`}>
-                    {BENEFITS[benefitIndex].title}
-                  </h3>
-                  <p className={`font-medium text-base md:text-xl leading-relaxed max-w-xl italic transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>
-                    {BENEFITS[benefitIndex].desc}
-                  </p>
+                  <div>
+                    <h3 className={`text-xl md:text-2xl font-black italic uppercase mb-2 tracking-tighter ${isDark ? 'text-white' : 'text-black'}`}>{benefit.title}</h3>
+                    <p className={`font-medium text-sm md:text-base italic leading-relaxed ${isDark ? 'text-white/50' : 'text-black/50'}`}>{benefit.desc}</p>
+                  </div>
                 </div>
-                <div className="block mt-10 md:mt-0 relative group">
-                   <div className={`absolute inset-0 ${isDark ? 'bg-[#22c55e]/5' : 'bg-[#22c55e]/10'} blur-[100px] rounded-full transition-all group-hover:bg-[#22c55e]/20`} />
-                   <TerminalStatus isDark={isDark} />
-                </div>
-              </motion.div>
-            </AnimatePresence>
+              ))}
+            </div>
+            <div className="relative group">
+               <div className={`absolute inset-0 ${isDark ? 'bg-[#22c55e]/5' : 'bg-[#22c55e]/10'} blur-[100px] rounded-full transition-all group-hover:bg-[#22c55e]/20`} />
+               <TerminalStatus isDark={isDark} />
+            </div>
           </div>
         </div>
       </section>
@@ -657,6 +214,7 @@ export default function App() {
             <div className={`relative border-2 md:border-[12px] ${isDark ? 'border-zinc-800' : 'border-black'} bg-black shadow-2xl overflow-hidden rounded-[1.5rem] md:rounded-[3rem]`}>
                <img 
                  src={SCHEDULE_IMAGE_URL} 
+                 loading="lazy"
                  className="w-full h-auto block hover:scale-[1.03] transition-transform duration-1000 ease-out max-h-[85vh] object-contain"
                  alt="Horarios Oficiales GreenBox"
                />
@@ -733,17 +291,13 @@ export default function App() {
                 >
                   Confirmar Inscripción
                 </button>
-                
-                <p className="text-[9px] text-center font-black uppercase text-neutral-300 tracking-widest italic">
-                  * Serás redirigido a WhatsApp para finalizar el proceso con un asesor técnico.
-                </p>
               </form>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Community Section (Automatic Carousel) */}
+      {/* Community Section */}
       <section id="nosotros" className={`py-8 md:py-16 ${isDark ? 'bg-[#050505]' : 'bg-white'} overflow-hidden border-y border-black/5 transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-8 md:mb-14 relative">
@@ -841,6 +395,7 @@ export default function App() {
                 <div className="aspect-[4/5] relative overflow-hidden">
                   <img 
                     src={coach.image} 
+                    loading="lazy"
                     alt={coach.name} 
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                   />
@@ -864,13 +419,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="absolute -top-24 -left-12 text-[#22c55e]/10 text-[20rem] font-black italic pointer-events-none select-none">"</div>
               <h2 className={`text-4xl md:text-7xl font-black italic uppercase leading-none tracking-tighter mb-8 ${isDark ? 'text-white' : 'text-black'}`}>
                 LO QUE DICE <br /> <span className="text-[#22c55e]">LA COMUNIDAD</span>
               </h2>
-              <div className="flex gap-4">
-                {[1,2,3,4,5].map(s => <Zap key={s} size={20} className="text-[#22c55e] fill-[#22c55e]" />)}
-              </div>
             </div>
             
             <div className="space-y-6">
@@ -906,31 +457,16 @@ export default function App() {
               <FAQItem key={index} q={faq.q} a={faq.a} isDark={isDark} />
             ))}
           </div>
-
-          <div className={`mt-12 p-6 md:p-8 border-2 ${isDark ? 'border-[#22c55e]/20 bg-neutral-900' : 'border-neutral-100 bg-neutral-50'} rounded-3xl text-center transition-all duration-500`}>
-            <p className={`font-black italic uppercase text-lg md:text-xl mb-4 ${isDark ? 'text-white' : 'text-black'}`}>¿TIENES OTRA PREGUNTA?</p>
-            <a 
-              href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${encodeURIComponent('Hola, tengo una pregunta sobre el Box.')}`}
-              target="_blank"
-              rel="noreferrer"
-              className={`inline-flex items-center gap-3 ${isDark ? 'bg-[#22c55e] text-white' : 'bg-black text-[#22c55e]'} px-8 py-3 rounded-full font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all`}
-            >
-              CHAT EN VIVO <MessageCircleMore size={16} />
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* New "How to Get There" Section */}
+      {/* How to Get There Section */}
       <section className={`py-16 md:py-32 ${isDark ? 'bg-[#0a0a0a]' : 'bg-white'} transition-colors duration-500 overflow-hidden`}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col items-center text-center mb-12 md:mb-20">
             <h2 className={`text-4xl sm:text-6xl md:text-8xl font-black italic uppercase tracking-tighter leading-[0.9] mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
               COMO LLEGAR A <br className="md:hidden" /> <span className="text-[#22c55e]">TÚ GREENBOX 💚</span>
             </h2>
-            <p className={`${isDark ? 'text-white/40' : 'text-black/40'} font-black uppercase tracking-[0.3em] text-[9px] sm:text-[10px] md:text-sm italic`}>
-              Sigue nuestra ruta y llega directo al éxito
-            </p>
           </div>
 
           <div className="max-w-5xl mx-auto relative group">
@@ -938,22 +474,21 @@ export default function App() {
             <div className={`relative border-4 md:border-[12px] ${isDark ? 'border-zinc-900 bg-black' : 'border-black bg-neutral-100'} shadow-2xl overflow-hidden rounded-[2rem] md:rounded-[3rem] aspect-video sm:aspect-auto`}>
               <video 
                 controls 
+                preload="none"
                 className="w-full h-full sm:h-auto block max-h-[70vh] object-cover sm:object-contain"
                 poster={HERO_IMAGE}
               >
                 <source src="/ComoLlegar.mp4" type="video/mp4" />
-                Tu navegador no soporta el elemento de video.
               </video>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact & Location Section (Compact & Refined) */}
+      {/* Contact Section */}
       <section id="contacto" className={`py-12 md:py-16 ${isDark ? 'bg-zinc-950' : 'bg-neutral-50'} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="px-2">
-            <span className="text-[#22c55e] font-black uppercase tracking-[0.4em] text-[8px] md:text-[10px] mb-2 block italic">Contacto Directo</span>
             <h2 className={`text-3xl sm:text-5xl md:text-6xl font-black italic uppercase leading-none mb-8 tracking-tighter transition-colors ${isDark ? 'text-white' : 'text-black'}`}>
               VISÍTANOS <br /> <span className="text-[#22c55e]">AQUÍ</span>
             </h2>
@@ -982,7 +517,6 @@ export default function App() {
           </div>
           
           <div className="relative group max-w-lg mx-auto lg:mx-0">
-             <div className="absolute inset-2 -right-2 -bottom-2 bg-[#22c55e] transition-transform group-hover:translate-x-1 group-hover:translate-y-1 rounded-2xl opacity-50" />
              <div className={`relative border-2 ${isDark ? 'border-white/5 bg-zinc-900' : 'border-black/5 bg-white'} p-6 md:p-10 rounded-2xl shadow-2xl transition-all duration-500`}>
                <div className="flex items-center gap-3 mb-4">
                  <div className="w-10 h-10 bg-[#22c55e]/10 rounded-full flex items-center justify-center text-[#22c55e]">
@@ -1002,11 +536,8 @@ export default function App() {
                  href={MAP_LINK}
                  target="_blank"
                  rel="noreferrer"
-                 className="inline-flex items-center justify-center gap-3 bg-[#22c55e] text-black px-6 py-3.5 rounded-xl font-black uppercase text-xs md:text-sm tracking-widest hover:scale-[1.02] active:scale-95 transition-all w-full shadow-lg shadow-[#22c55e]/20 group/btn"
+                 className="inline-flex items-center justify-center gap-3 bg-[#22c55e] text-black px-6 py-3.5 rounded-xl font-black uppercase text-xs md:text-sm tracking-widest hover:scale-[1.02] active:scale-95 transition-all w-full shadow-lg shadow-[#22c55e]/20"
                >
-                 <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center p-1.5 shadow-sm shrink-0">
-                    <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" className="w-full h-full object-contain" alt="G-Maps" />
-                 </div>
                  <span>COMO LLEGAR</span>
                  <ExternalLink size={16} className="opacity-40" />
                </a>
@@ -1015,92 +546,51 @@ export default function App() {
         </div>
       </section>
 
-      {/* Sponsors Strip (Inspired by Example) */}
+      {/* Sponsors Strip */}
       <div className={`py-8 border-t ${isDark ? 'bg-zinc-900/50 border-white/5' : 'bg-neutral-50 border-black/5'} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-40 hover:opacity-100 transition-all duration-700">
-          <a 
-            href="https://instagram.com/brissport" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex flex-col items-center gap-2 group"
-          >
-            <img src="/brissport.jpg" alt="Brissport" className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" />
+          <a href="https://instagram.com/brissport" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
+            <img src="/brissport.jpg" loading="lazy" alt="Brissport" className="h-8 md:h-12 object-contain grayscale group-hover:grayscale-0 transition-all" />
             <div className="text-center">
               <p className={`text-[10px] font-black uppercase tracking-widest ${isDark ? 'text-white' : 'text-black'}`}>BRISSPORT</p>
-              <p className="text-[8px] font-bold text-[#22c55e] uppercase tracking-tighter italic">Implementos Deportivos</p>
             </div>
           </a>
         </div>
       </div>
 
-      {/* Main Footer (GreenBox Style) */}
+      {/* Footer */}
       <footer className={`py-16 md:py-24 border-t transition-colors duration-500 ${isDark ? 'bg-black border-white/5' : 'bg-white border-neutral-200'}`}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center mb-20">
-            {/* Column 1: Navigation Links */}
             <div className="flex flex-col gap-4 text-center md:text-left">
               <a href="#faqs" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Preguntas frecuentes</a>
-              <a href={`mailto:${EMAIL_CONTACT}`} className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Contacto: {EMAIL_CONTACT}</a>
-              <a href="#contacto" className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Sede Naguanagua</a>
+              <a href={`mailto:${EMAIL_CONTACT}`} className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:text-[#22c55e] transition-colors ${isDark ? 'text-white/50' : 'text-black/50'}`}>Contacto</a>
             </div>
-
-            {/* Column 2: Social Media Circles */}
             <div className="flex justify-center gap-5">
-              {[
-                { icon: <Instagram size={20} />, href: `https://instagram.com/${INSTAGRAM_HANDLE}`, label: "Instagram" }
-              ].map((social, i) => (
-                <a 
-                  key={i}
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={social.label}
-                  className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-500 border ${
-                    isDark 
-                      ? 'bg-zinc-900/50 border-white/5 text-white hover:bg-[#22c55e] hover:text-black hover:border-[#22c55e] shadow-lg hover:shadow-[#22c55e]/20' 
-                      : 'bg-neutral-50 border-black/5 text-black hover:bg-[#22c55e] hover:text-white hover:border-[#22c55e] shadow-sm'
-                  }`}
-                >
-                  {social.icon}
-                </a>
-              ))}
+              <a href={`https://instagram.com/${INSTAGRAM_HANDLE}`} target="_blank" rel="noreferrer" className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border ${isDark ? 'bg-zinc-900 border-white/5 text-white' : 'bg-neutral-50 border-black/5 text-black'}`}>
+                <Instagram size={20} />
+              </a>
             </div>
-
-            {/* Column 3: Brand Logo */}
             <div className="flex justify-center md:justify-end">
               <LogoSVG isDark={isDark} className="scale-75 md:scale-100" />
             </div>
           </div>
-
-          {/* Copyright Section */}
-          <div className="pt-10 border-t border-white/5 text-center flex flex-col gap-2">
+          <div className="pt-10 border-t border-white/5 text-center">
             <p className={`text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] italic transition-colors ${isDark ? 'text-white/20' : 'text-black/20'}`}>
-              © {new Date().getFullYear()} GREENBOX FITNESS CLUBS. ALL RIGHTS RESERVED.
+              © {new Date().getFullYear()} GREENBOX FITNESS CLUBS.
             </p>
-            <a 
-              href="https://instagram.com/rameseba" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`text-[8px] md:text-[9px] font-bold uppercase tracking-[0.2em] transition-all hover:text-[#22c55e] ${isDark ? 'text-white/10' : 'text-black/10'}`}
-            >
-              Diseñado por @rameseba
-            </a>
           </div>
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button */}
+      {/* WhatsApp Button */}
       <a 
         href={`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${WHATSAPP_MESSAGE}`}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-[60] bg-[#22c55e] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-90 transition-all group animate-bounce-slow"
-        title="Contáctanos por WhatsApp"
+        className="fixed bottom-6 right-6 z-[60] bg-[#22c55e] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group"
       >
-        <MessageCircleMore size={28} className="md:size-32" />
-        <span className="absolute right-full mr-4 bg-black text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl border border-white/10">
-          ¿En qué podemos ayudarte?
-        </span>
+        <MessageCircleMore size={28} />
       </a>
     </div>
   );
